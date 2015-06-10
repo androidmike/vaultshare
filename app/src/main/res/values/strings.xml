@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Play</string>
+    <string name="drawer_open">Menu opened</string>
+    <string name="drawer_close">Menu closed</string>
+    <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">898918560147276</string>
+    <string name="soundcloud_id">26ed86bdb2c36731ed59d35488e8e1d4</string>
+    <string name="soundcloud_endpoint">http://api.soundcloud.com/</string>
+    <string name="soundcloud_stream_url" formatted="false">
+        http://api.soundcloud.com/tracks/%s/stream?client_id=%s
+    </string>
+</resources>
