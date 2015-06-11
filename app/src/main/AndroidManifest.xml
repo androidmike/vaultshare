@@ -29,13 +29,17 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
+        </activity>
+        <activity android:name=".activities.LoginActivity">
+        </activity>
+        <activity
+            android:name=".activities.LaunchActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity android:name="com.facebook.FacebookActivity"
                   android:configChanges=
                       "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -58,7 +62,8 @@
             </intent-filter>
         </receiver>
         <service android:name="com.layer.sdk.services.GcmIntentService"/>
-
+        <activity android:name=".ac">
+        </activity>
         <!-- Listen for Layer-generated push Intents -->
         <receiver android:name=".LayerPushReceiver">
             <intent-filter>

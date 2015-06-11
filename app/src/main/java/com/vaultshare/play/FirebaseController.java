@@ -79,11 +79,11 @@ public class FirebaseController {
         Firebase setRef = FirebaseController.getInstance().getRef().child("sets").push();
         HashMap map = new HashMap();
         map.put("last_updated", TimeUtils.getCurrentTimestamp());
-        map.put("creator", SessionController.getInstance().getUid());
+        map.put("creator", SessionController.getInstance().getSession().getUid());
         setRef.setValue(map);
 
         Firebase userRef = FirebaseController.getInstance().getRef().child("users")
-                .child(SessionController.getInstance().getUid());
+                .child(SessionController.getInstance().getSession().getUid());
         HashMap map2 = new HashMap();
         map2.put(setRef.getKey(), TimeUtils.getCurrentTimestamp());
         userRef.child("sets").setValue(map2);
@@ -222,9 +222,9 @@ public class FirebaseController {
     public void testCreateRoomTracksSets() {
         //Create tracks
         List trackIds = new ArrayList();
-        trackIds.add(addTrack(TimeUtils.getCurrentTimestamp(), SessionController.getInstance().getUid(),
+        trackIds.add(addTrack(TimeUtils.getCurrentTimestamp(), SessionController.getInstance().getSession().getUid(),
                 Track.Source.SOUNDCLOUD, String.valueOf(63500636)));
-        trackIds.add(addTrack(TimeUtils.getCurrentTimestamp(), SessionController.getInstance().getUid(),
+        trackIds.add(addTrack(TimeUtils.getCurrentTimestamp(), SessionController.getInstance().getSession().getUid(),
                 Track.Source.SOUNDCLOUD, String.valueOf(183347321)));
 
         String stationId = createStation("A new station", "A new description");
@@ -240,7 +240,7 @@ public class FirebaseController {
         }
         final Firebase station = FirebaseController.getInstance().getRef().child("stations").child(stationId);
         Map map = new HashMap();
-        map.put(SessionController.getInstance().getUid(), TimeUtils.getCurrentTimestamp());
+        map.put(SessionController.getInstance().getSession().getUid(), TimeUtils.getCurrentTimestamp());
         station.child("live_users").updateChildren(map);
 
         station.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -399,7 +399,7 @@ public class FirebaseController {
 
         // Link station to user
         Firebase userRef = FirebaseController.getInstance().getRef().child("users")
-                .child(SessionController.getInstance().getUid());
+                .child(SessionController.getInstance().getSession().getUid());
         HashMap map2 = new HashMap();
         map2.put(stationRef.getKey(), true);
         userRef.child("stations").setValue(map2);
@@ -431,7 +431,7 @@ public class FirebaseController {
         Firebase setRef = FirebaseController.getInstance().getRef().child("sets").push();
         HashMap map = new HashMap();
         map.put("last_updated", TimeUtils.getCurrentTimestamp());
-        map.put("creator", SessionController.getInstance().getUid());
+        map.put("creator", SessionController.getInstance().getSession().getUid());
         setRef.setValue(map);
 
         // Add all tracks in set

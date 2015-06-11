@@ -11,6 +11,7 @@ import android.content.Context;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.FacebookSdk;
 import com.firebase.client.Firebase;
 
 /**
@@ -31,5 +32,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Firebase.setAndroidContext(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        SessionController.getInstance().restoreCurrentSession();
     }
 }

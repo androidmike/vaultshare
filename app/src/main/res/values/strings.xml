@@ -9,4 +9,7 @@
     <string name="soundcloud_stream_url" formatted="false">
         http://api.soundcloud.com/tracks/%s/stream?client_id=%s
     </string>
+    <string name="layer_app_test_id">259dcca6-0fbf-11e5-b1fa-9fa92d006e08</string>
+    <string name="layer_app_id">012318e4-0fc0-11e5-9ab3-aa9e95003a16</string>
+    <string name="firebase_secret">gi9pBHJ3XXfLOU6dbvwAyrpVBmSqEvoYcOmNvbEl</string>
 </resources>

@@ -2,8 +2,6 @@ package com.vaultshare.play;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -22,24 +19,32 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.layer.atlas.Atlas;
+import com.layer.atlas.AtlasConversationsList;
+import com.layer.sdk.LayerClient;
+import com.layer.sdk.messaging.Conversation;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import butterknife.InjectView;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerCallbacks {
+
+
+    static public LayerClient               layerClient;
+    static public Atlas.ParticipantProvider participantProvider;
+
+    private AtlasConversationsList myConversationList;
+
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -63,12 +68,10 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.fragment_drawer);
 
@@ -105,7 +108,73 @@ public class MainActivity extends ActionBarActivity
             }
         };
 
+//
+//        layerClient = LayerClient.newInstance(this, getString(R.string.layer_app_test_id));
+//        layerClient.registerAuthenticationListener(new MyAuthenticationListener(this));
+//        layerClient.connect();
+////        if (!layerClient.isAuthenticated()) {
+////        layerClient.authenticate();
+////        } else {
+////            onUserAuthenticated();
+////        }
+//        layerClient.deauthenticate();
+//        layerClient.authenticate();
     }
+
+
+    public void onUserAuthenticated() {
+        participantProvider = new Atlas.ParticipantProvider() {
+            Map<String, Atlas.Participant> users = new HashMap<String, Atlas.Participant>();
+
+            {
+                users.put("Tee", new User());
+                users.put(SessionController.getInstance().getSession().getUid(),
+                        SessionController.getInstance().getSession().getCurrentUser());
+            }
+
+            public Map<String, Atlas.Participant> getParticipants(String filter,
+                                                                  Map<String, Atlas.Participant> result) {
+
+                for (Map.Entry<String, Atlas.Participant> entry : users.entrySet()) {
+                    if (entry.getValue().getFirstName().indexOf(filter) > -1)
+                        result.put(entry.getKey(), entry.getValue());
+                }
+
+                return result;
+            }
+
+            public Atlas.Participant getParticipant(String userId) {
+                return users.get(userId);
+            }
+        };
+
+        myConversationList = (AtlasConversationsList) findViewById(R.id.conversationlist);
+        myConversationList.init(layerClient, participantProvider);
+        myConversationList.setClickListener(new AtlasConversationsList.ConversationClickListener() {
+            public void onItemClick(Conversation conversation) {
+                startMessagesActivity(conversation);
+            }
+        });
+
+        layerClient.registerEventListener(myConversationList);
+
+        View newconversation = findViewById(R.id.newconversation);
+        newconversation.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startMessagesActivity(null);
+            }
+        });
+    }
+
+
+    private void startMessagesActivity(Conversation c) {
+        Intent intent = new Intent(this, com.vaultshare.play.MessagesActivity.class);
+        if (c != null) {
+            intent.putExtra("conversation-id", c.getId());
+        }
+        startActivity(intent);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -135,8 +204,7 @@ public class MainActivity extends ActionBarActivity
                             Firebase usersRef = FirebaseController.getInstance().getRef().child("users");
                             usersRef.child(authData.getUid()).setValue(map);
 
-                            SessionController.getInstance().setUid(authData.getUid());
-
+                            SessionController.getInstance().getSession().setUid(authData.getUid());
 
 
                             FirebaseController.getInstance().testCreateRoomTracksSets();

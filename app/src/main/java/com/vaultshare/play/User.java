@@ -1,13 +1,25 @@
 package com.vaultshare.play;
 
+import com.layer.atlas.Atlas;
+
 import java.util.List;
 
 /**
  * Created by mchang on 6/8/15.
  */
-public class User {
+public class User implements Atlas.Participant {
     public void setState(State state) {
         this.state = state;
+    }
+
+    @Override
+    public String getFirstName() {
+        return fullName;
+    }
+
+    @Override
+    public String getLastName() {
+        return fullName;
     }
 
     public enum State {

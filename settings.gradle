@@ -1,2 +1,2 @@
 include ':app', ':layer-atlas'
-project(':layer-atlas').projectDir = new File('Atlas-Android/layer-atlas')
+project(':layer-atlas').projectDir = new File('./layer-atlas')
