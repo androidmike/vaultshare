@@ -4,8 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.vaultshare.play.R;
 import com.vaultshare.play.model.FirebaseModel;
 import com.vaultshare.play.model.Station;
 
@@ -16,13 +16,13 @@ import java.util.List;
  */
 public class BrowseRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    List<FirebaseModel> contents;
+    List<FirebaseModel> stations;
 
     static final int TYPE_HEADER = 0;
     static final int TYPE_CELL   = 1;
 
-    public BrowseRecyclerViewAdapter(List<FirebaseModel> contents) {
-        this.contents = contents;
+    public BrowseRecyclerViewAdapter(List<FirebaseModel> stations) {
+        this.stations = stations;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class BrowseRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemCount() {
-        return contents.size();
+        return stations.size();
     }
 
     @Override
@@ -53,14 +53,25 @@ public class BrowseRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             }
             case TYPE_CELL: {
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.list_item_card_small, parent, false);
-                return new RecyclerView.ViewHolder(view) {
-                };
+                        .inflate(R.layout.list_item_browse_station_small, parent, false);
+                return new StationViewHolder(view);
             }
         }
         return null;
     }
 
+    private class StationViewHolder extends RecyclerView.ViewHolder {
+        protected TextView name;
+        protected TextView description;
+        protected View     liveIndicator;
+
+        public StationViewHolder(View itemView) {
+            super(itemView);
+            description = (TextView) itemView.findViewById(R.id.station_description);
+            name = (TextView) itemView.findViewById(R.id.station_display_name);
+            liveIndicator = itemView.findViewById(R.id.live_indicator);
+        }
+    }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -68,6 +79,11 @@ public class BrowseRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             case TYPE_HEADER:
                 break;
             case TYPE_CELL:
+                Station station = (Station) stations.get(position);
+                StationViewHolder viewHolder = (StationViewHolder) holder;
+                viewHolder.name.setText(station.getDisplayName());
+                viewHolder.description.setText(station.getDescription());
+                viewHolder.liveIndicator.setVisibility(station.isLive() ? View.VISIBLE : View.GONE);
                 break;
         }
     }

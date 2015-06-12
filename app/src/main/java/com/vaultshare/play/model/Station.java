@@ -24,4 +24,12 @@ public class Station extends FirebaseModel {
     public String getDisplayName() {
         return display_name;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isLive() {
+        return live_set != null;
+    }
 }
