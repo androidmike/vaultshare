@@ -1,158 +1,57 @@
 package com.vaultshare.play;
 
-import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import com.firebase.client.AuthData;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
+import com.github.florent37.materialviewpager.HeaderDesign;
+import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.vaultshare.play.activities.BaseActivity;
+import com.vaultshare.play.fragments.DigFragment;
+import com.vaultshare.play.fragments.ScrollFragment;
+import com.vaultshare.play.fragments.WebViewFragment;
 
 import butterknife.InjectView;
 
 
-public class MainActivity extends ActionBarActivity
+public class MainActivity extends BaseActivity
         implements NavigationDrawerCallbacks {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-    private Toolbar                  mToolbar;
 
-    AccessTokenTracker accessTokenTracker;
-
-    @InjectView(R.id.start_set_button)
-    Button startSetButton;
+    @InjectView(R.id.drawer)
+    DrawerLayout drawerLayout;
 
     @Override
-    public void onStop() {
-        accessTokenTracker.stopTracking();
-        super.onStop();
+    public int getLayout() {
+        return R.layout.activity_main_old;
     }
 
-    CallbackManager callbackManager;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        Firebase.setAndroidContext(this);
-        setContentView(R.layout.activity_main);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+    public void initUI() {
         setSupportActionBar(mToolbar);
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.fragment_drawer);
 
         // Set up the drawer.
-        mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
+        mNavigationDrawerFragment.setup(R.id.fragment_drawer, drawerLayout, mToolbar);
         // populate the navigation drawer
         mNavigationDrawerFragment.setUserData("John Doe", "johndoe@doe.com", BitmapFactory.decodeResource(getResources(), R.drawable.avatar));
-
-
-        callbackManager = CallbackManager.Factory.create();
-
-        LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login_button);
-
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                    }
-
-                    @Override
-                    public void onCancel() {
-                    }
-
-                    @Override
-                    public void onError(FacebookException e) {
-                    }
-                });
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(
-                    AccessToken oldAccessToken,
-                    AccessToken currentAccessToken) {
-                onFacebookAccessTokenChange(currentAccessToken);
-            }
-        };
-
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void onFacebookAccessTokenChange(AccessToken token) {
-        if (token != null) {
-            FirebaseController.getInstance().getRef()
-                    .authWithOAuthToken("facebook", token.getToken(), new Firebase.AuthResultHandler() {
-                        @Override
-                        public void onAuthenticated(AuthData authData) {
-                            Map<String, String> map = new HashMap<String, String>();
-                            map.put("provider", authData.getProvider());
-                            if (authData.getProviderData().containsKey("id")) {
-                                map.put("provider_id", authData.getProviderData().get("id").toString());
-                            }
-                            if (authData.getProviderData().containsKey("displayName")) {
-                                String displayName = authData.getProviderData().get("displayName").toString();
-                                map.put("displayName", displayName);
-
-                                Toast.makeText(MainActivity.this, String.format("You are logged in as %s", displayName), Toast.LENGTH_SHORT).show();
-                            }
-
-                            Map<String, User> users = new HashMap<String, User>();
-                            Firebase usersRef = FirebaseController.getInstance().getRef().child("users");
-                            usersRef.child(authData.getUid()).setValue(map);
-
-                            SessionController.getInstance().setUid(authData.getUid());
-
-
-
-                            FirebaseController.getInstance().testCreateRoomTracksSets();
-                        }
-
-                        @Override
-                        public void onAuthenticationError(FirebaseError firebaseError) {
-                            // there was an error
-                            Toast.makeText(MainActivity.this, "logged failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        } else {
-            FirebaseController.getInstance().getRef().unauth();
-        }
-    }
-
+    @InjectView(R.id.toolbar_actionbar)
+    Toolbar mToolbar;
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -161,19 +60,19 @@ public class MainActivity extends ActionBarActivity
         Fragment f = null;
         switch (position) {
             case 0: // Following/Newsfeed
-                f = new BrowseFragment();
+//                f = new BrowseFragment();
                 break;
             case 1: // Vault
-                f = new BrowseFragment();
+                f = new DigFragment();
                 break;
             case 2: // Mixing
-                f = new BrowseFragment();
+                f = new SettingsFragment();
                 break;
         }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, f)
-                .commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.container, f)
+//                .commit();
     }
 
 
@@ -214,5 +113,115 @@ public class MainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private MaterialViewPager mViewPager;
+
+    private DrawerLayout          mDrawer;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private Toolbar               toolbar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        setTitle("");
+
+        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+
+        toolbar = mViewPager.getToolbar();
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+
+            final ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                actionBar.setDisplayShowHomeEnabled(true);
+                actionBar.setDisplayShowTitleEnabled(true);
+                actionBar.setDisplayUseLogoEnabled(false);
+                actionBar.setHomeButtonEnabled(true);
+            }
+        }
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
+        mDrawer.setDrawerListener(mDrawerToggle);
+
+        mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+
+            @Override
+            public Fragment getItem(int position) {
+                switch (position) {
+                    case 0:
+                        return RecyclerViewFragment.newInstance();
+                    case 1:
+                        return RecyclerViewFragment.newInstance();
+                    case 2:
+                        return WebViewFragment.newInstance();
+                    default:
+                        return ScrollFragment.newInstance();
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 4;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                switch (position % 4) {
+                    case 0:
+                        return "Selection";
+                    case 1:
+                        return "Actualités";
+                    case 2:
+                        return "Professionnel";
+                    case 3:
+                        return "Divertissement";
+                }
+                return "";
+            }
+        });
+
+        mViewPager.setMaterialViewPagerListener(new MaterialViewPager.MaterialViewPagerListener() {
+            @Override
+            public HeaderDesign getHeaderDesign(int page) {
+                switch (page) {
+                    case 0:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.blue,
+                                "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg");
+                    case 1:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.green,
+                                "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg");
+                    case 2:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.cyan,
+                                "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg");
+                    case 3:
+                        return HeaderDesign.fromColorResAndUrl(
+                                R.color.red,
+                                "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg");
+                }
+
+                //execute others actions if needed (ex : modify your header logo)
+
+                return null;
+            }
+        });
+
+        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
+        mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+
+        mViewPager.getViewPager().setCurrentItem(1);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
 
 }

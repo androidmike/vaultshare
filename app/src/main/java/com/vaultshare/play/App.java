@@ -11,6 +11,7 @@ import android.content.Context;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.FacebookSdk;
 import com.firebase.client.Firebase;
 
 /**
@@ -30,6 +31,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
         Firebase.setAndroidContext(this);
     }
 }

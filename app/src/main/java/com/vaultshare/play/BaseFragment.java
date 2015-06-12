@@ -62,4 +62,5 @@ public abstract class BaseFragment extends Fragment {
      * Called after onAttach when activity is available
      */
     public abstract void initUI();
+
 }
