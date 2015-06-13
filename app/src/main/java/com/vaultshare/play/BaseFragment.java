@@ -63,4 +63,7 @@ public abstract class BaseFragment extends Fragment {
      */
     public abstract void initUI();
 
+    public String getLogTag() {
+        return this.getClass().getName();
+    }
 }

@@ -1,11 +1,14 @@
 package com.vaultshare.play;
 
 import android.database.DataSetObserver;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,11 +28,11 @@ import butterknife.InjectView;
 public class ChatFragment extends BaseFragment {
 
     @InjectView(R.id.messageInput)
-    EditText inputText;
+    EditText    inputText;
     @InjectView(R.id.sendButton)
-    Button   sendButton;
+    ImageButton sendButton;
     @InjectView(R.id.chat_list_view)
-    ListView listView;
+    ListView    listView;
 
     private ValueEventListener mConnectedListener;
     private ChatListAdapter    mChatListAdapter;
@@ -65,6 +68,7 @@ public class ChatFragment extends BaseFragment {
         mChatListAdapter = new ChatListAdapter(mFirebaseChatRef.limit(50), getActivity(),
                 R.layout.chat_message, SessionController.getInstance().getSession().getUid());
         listView.setAdapter(mChatListAdapter);
+
         mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
@@ -108,5 +112,11 @@ public class ChatFragment extends BaseFragment {
             mFirebaseChatRef.push().setValue(chat);
             inputText.setText("");
         }
+    }
+
+    public static ChatFragment newInstance(Bundle bundle) {
+        ChatFragment chatFragment =  new ChatFragment();
+        chatFragment.setArguments(bundle);
+        return chatFragment;
     }
 }

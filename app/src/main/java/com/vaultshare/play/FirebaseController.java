@@ -59,6 +59,10 @@ public class FirebaseController {
                 );
     }
 
+    public Firebase getUserRefs() {
+        return FirebaseController.getInstance().getRef().child("users");
+    }
+
     public enum Source {
         SPOTIFY, SOUNDCLOUD, VS;
     }

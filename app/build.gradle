@@ -41,4 +41,6 @@ dependencies {
     compile('com.github.florent37:materialviewpager:1.0.5@aar') {
         transitive = true
     }
+    compile 'com.jpardogo.materialtabstrip:library:1.1.0'
+    compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
 }

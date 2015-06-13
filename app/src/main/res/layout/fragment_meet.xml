@@ -1,0 +1,50 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent" android:background="#000">
+    <LinearLayout android:id="@+id/chat_layout"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:orientation="vertical">
+        <LinearLayout android:id="@+id/header_container"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#222233"
+                android:padding="15dp"
+                android:text="2034 people currently in the building."
+                android:textColor="#FFFFFF"/>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <TextView android:id="@+id/vibing_text"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="8"
+                          android:background="#ff00cc18"
+                          android:padding="15dp"
+                          android:text="+23 vibin'"
+                          android:textColor="#FFFFFF"
+                          android:textSize="10sp"/>
+
+                <TextView android:id="@+id/hating_text"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content" android:layout_weight="2"
+                          android:background="#ffcc3845"
+                          android:padding="15dp"
+                          android:text="+2 hatin'"
+                          android:textColor="#FFFFFF"
+                          android:textSize="10sp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <ListView android:layout_width="match_parent"
+                  android:id="@+id/avatar_listview"
+                  android:layout_height="wrap_content"></ListView>
+
+    </LinearLayout>
+
+
+</FrameLayout>

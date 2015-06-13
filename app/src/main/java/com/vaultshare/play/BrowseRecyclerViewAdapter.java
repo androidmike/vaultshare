@@ -1,5 +1,7 @@
 package com.vaultshare.play;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +18,14 @@ import java.util.List;
  */
 public class BrowseRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    List<FirebaseModel> stations;
-
+    private List<FirebaseModel> stations;
+    private Context             context;
     static final int TYPE_HEADER = 0;
     static final int TYPE_CELL   = 1;
 
-    public BrowseRecyclerViewAdapter(List<FirebaseModel> stations) {
+    public BrowseRecyclerViewAdapter(Context context, List<FirebaseModel> stations) {
         this.stations = stations;
+        this.context = context;
     }
 
     @Override
@@ -79,11 +82,20 @@ public class BrowseRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             case TYPE_HEADER:
                 break;
             case TYPE_CELL:
-                Station station = (Station) stations.get(position);
+                final Station station = (Station) stations.get(position);
                 StationViewHolder viewHolder = (StationViewHolder) holder;
                 viewHolder.name.setText(station.getDisplayName());
                 viewHolder.description.setText(station.getDescription());
                 viewHolder.liveIndicator.setVisibility(station.isLive() ? View.VISIBLE : View.GONE);
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(context, StationActivity.class);
+                        i.putExtra(StationActivity.EXTRA_STATION_ID, station.getKey());
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        context.startActivity(i);
+                    }
+                });
                 break;
         }
     }

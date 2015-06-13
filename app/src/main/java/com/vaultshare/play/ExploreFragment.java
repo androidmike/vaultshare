@@ -27,13 +27,13 @@ import java.util.Map;
 /**
  * Created by florentchampigny on 24/04/15.
  */
-public class RecyclerViewFragment extends Fragment {
+public class ExploreFragment extends Fragment {
 
     private RecyclerView         mRecyclerView;
     private RecyclerView.Adapter mAdapter;
 
-    public static RecyclerViewFragment newInstance() {
-        return new RecyclerViewFragment();
+    public static ExploreFragment newInstance() {
+        return new ExploreFragment();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class RecyclerViewFragment extends Fragment {
         List<Station> stations = new ArrayList<>();
 
         initializeStations(FirebaseController.getInstance().getStationsRef(), Station.class);
-        mAdapter = new RecyclerViewMaterialAdapter(new BrowseRecyclerViewAdapter(mModels));
+        mAdapter = new RecyclerViewMaterialAdapter(new BrowseRecyclerViewAdapter(getActivity(), mModels));
         mRecyclerView.setAdapter(mAdapter);
 
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
