@@ -6,29 +6,49 @@
                                         android:layout_height="match_parent"
 
                                         android:fitsSystemWindows="true">
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <!--<include-->
-            <!--android:id="@+id/toolbar_actionbar"-->
-            <!--layout="@layout/toolbar_default"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"/>-->
-
-
-        <ProgressBar
-            android:id="@+id/pb"
-            style="@android:style/Widget.ProgressBar.Horizontal"
+        <android.support.v7.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@style/ToolBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="2dp"/>
+            android:id="@+id/toolbar_actionbar"
+            android:layout_gravity="top"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="@dimen/abc_action_bar_default_height_material"/>
+
+
+        <!--<com.github.florent37.materialviewpager.MaterialViewPager-->
+            <!--android:id="@+id/materialViewPager"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:viewpager_logo="@layout/header_logo"-->
+            <!--app:viewpager_pagerTitleStrip="@layout/material_view_pager_pagertitlestrip_standard"-->
+            <!--app:viewpager_logoMarginTop="100dp"-->
+            <!--app:viewpager_color="@color/colorPrimary"-->
+            <!--app:viewpager_headerHeight="200dp"-->
+            <!--app:viewpager_headerAlpha="0.6"-->
+            <!--app:viewpager_hideLogoWithFade="false"-->
+            <!--app:viewpager_hideToolbarAndTitle="true"-->
+            <!--app:viewpager_enableToolbarElevation="true"-->
+            <!--app:viewpager_parallaxHeaderFactor="1.5"-->
+            <!--app:viewpager_headerAdditionalHeight="20dp"-->
+            <!--app:viewpager_displayToolbarWhenSwipe="true"-->
+            <!--/>-->
+        <!--<ProgressBar-->
+            <!--android:id="@+id/pb"-->
+            <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2dp"/>-->
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"></FrameLayout>
-    </LinearLayout>
+    </FrameLayout>
     <!-- android:layout_marginTop="?android:attr/actionBarSize"-->
     <com.vaultshare.play.ScrimInsetsFrameLayout
         android:id="@+id/scrimInsetsFrameLayout"
