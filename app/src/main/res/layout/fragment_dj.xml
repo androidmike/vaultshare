@@ -9,7 +9,7 @@
         android:id="@+id/materialViewPager"
         android:layout_width="match_parent"     app:viewpager_hideLogoWithFade="true"
         android:layout_height="match_parent"
-        app:viewpager_logo="@layout/header_logo_dj"
+        app:viewpager_logo="@layout/header_logo_vault"
         app:viewpager_pagerTitleStrip="@layout/material_view_pager_pagertitlestrip_standard"
         app:viewpager_logoMarginTop="60dp"
         app:viewpager_color="@color/colorPrimary"
