@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:vs="http://schemas.android.com/apk/lib/com.vaultshare.play">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,6 +12,13 @@
         android:orientation="vertical">
 
         <include layout="@layout/material_view_pager_placeholder"/>
+
+        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Artist name or track title"
+            android:inputType="textPassword"
+            vs:floatingLabel="highlight"/>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -23,13 +30,43 @@
             android:background="@android:color/white"
             app:cardElevation="4dp">
 
+
+            <android.support.v7.widget.RecyclerView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1000dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <ListView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"></ListView>
+                <include layout="@layout/sample_mix_row"/>
+                <include layout="@layout/sample_mix_row"/>
+                <include layout="@layout/sample_mix_row"/>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="20dp"
+                              android:background="#ffb5e536"
+                              android:orientation="vertical"
+                              android:padding="10dp">
+                    <TextView android:layout_width="match_parent"
 
+                              android:layout_height="wrap_content"
+                              android:text="10 Tracks"/>
+
+                    <TextView android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:text="Duration: 33:00"/>
+                    <TextView android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:text="2 Exclusives"/>
+
+                </LinearLayout>
             </LinearLayout>
-
         </android.support.v7.widget.CardView>
     </LinearLayout>
 

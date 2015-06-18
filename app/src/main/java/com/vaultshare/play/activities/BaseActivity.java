@@ -19,6 +19,7 @@ import com.vaultshare.play.App;
 import com.vaultshare.play.Bus;
 import com.vaultshare.play.FirebaseController;
 import com.vaultshare.play.MainActivity;
+import com.vaultshare.play.Session;
 import com.vaultshare.play.SessionController;
 import com.vaultshare.play.StationActivity;
 
@@ -45,10 +46,12 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.onResume();
         Bus.getInstance().register(this);
     }
+
     public void onPause() {
         Bus.getInstance().unregister(this);
         super.onPause();
     }
+
     public void evaluateSession() {
         // Router depends on FB logged in state
         if (SessionController.getInstance().isLoggedInFacebook()) {
@@ -127,7 +130,10 @@ public abstract class BaseActivity extends ActionBarActivity {
 
                 Firebase usersRef = FirebaseController.getInstance().getRef().child("users");
                 usersRef.child(authData.getUid()).setValue(map);
-                SessionController.getInstance().getSession().setUid(authData.getUid());
+                Session session = SessionController.getInstance().getSession();
+                if (session == null) {
+                    SessionController.getInstance().startNewSession(authData.getUid());
+                }
 
                 // Testing
                 FirebaseController.getInstance().testCreateRoomTracksSets();

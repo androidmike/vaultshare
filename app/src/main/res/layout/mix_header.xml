@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:vs="http://schemas.android.com/apk/lib/com.vaultshare.play"
+              android:layout_width="match_parent"
+
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Artist name or track title"
+        android:inputType="textPassword"
+        vs:floatingLabel="highlight"/>
+</LinearLayout>

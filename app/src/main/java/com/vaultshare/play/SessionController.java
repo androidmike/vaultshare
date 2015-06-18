@@ -23,6 +23,7 @@ public class SessionController {
     public static SessionController getInstance() {
         if (sessionController == null) {
             sessionController = new SessionController();
+
         }
         return sessionController;
     }
@@ -32,8 +33,6 @@ public class SessionController {
             Session foundSession = new Gson().fromJson(prefs.getString(SESSION_STATE_GSON, null), Session.class);
             if (foundSession != null) {
                 currentSession = foundSession;
-            } else {
-                currentSession = new Session();
             }
         } catch (Exception e) {
         }
@@ -61,9 +60,11 @@ public class SessionController {
     }
 
     public Session getSession() {
-        if (currentSession == null) {
-            currentSession = new Session();
-        }
         return currentSession;
+    }
+
+    public void startNewSession(String uid) {
+        currentSession = new Session(uid);
+        saveCurrentSession();
     }
 }

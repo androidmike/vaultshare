@@ -47,9 +47,9 @@ public class VaultFragment extends BaseFragment {
             public Fragment getItem(int position) {
                 switch (position) {
                     case 0:
-                        return ExploreFragment.newInstance();
+                        return FollowingFragment.newInstance();
                     case 1:
-                        return ExploreFragment.newInstance();
+                        return FollowingFragment.newInstance();
                 }
                 return null;
             }

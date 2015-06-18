@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="center"
+             android:orientation="horizontal" tools:showIn="@layout/mix_bar">
+    <ImageView android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:layout_gravity="center"
+               android:src="@drawable/chamillionaire_sound_revente_album_cover"/>
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:orientation="vertical"
+                  android:visibility="gone">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Turn It Up"
+                  android:textColor="#AAA"
+                  android:textSize="10sp"
+                  android:textStyle="bold"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Chamillionaire"
+                  android:textColor="#666"
+                  android:textSize="10sp"/>
+    </LinearLayout>
+</FrameLayout>

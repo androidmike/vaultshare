@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
@@ -34,7 +33,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public int getLayout() {
-        return R.layout.activity_main_old;
+        return R.layout.activity_main;
     }
 
     @Override
@@ -82,11 +81,10 @@ public class MainActivity extends BaseActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         Toast.makeText(this, "Menu item selected -> " + position, Toast.LENGTH_SHORT).show();
-//        toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         Fragment f = null;
         switch (position) {
             case 0: // Following/Newsfeed
-                f = new BrowseStationsFragment();
+                f = new DigFragment();
 //                toolbar.setVisibility(View.GONE);
                 break;
             case 1: // Vault
@@ -96,6 +94,11 @@ public class MainActivity extends BaseActivity
                 break;
             case 2: // Mixing
                 f = new VaultFragment();
+//                toolbar.setVisibility(View.VISIBLE);
+//                f = new SettingsFragment();
+                break;
+            case 3: // Mixing
+                f = new SettingsFragment();
 //                toolbar.setVisibility(View.VISIBLE);
 //                f = new SettingsFragment();
                 break;

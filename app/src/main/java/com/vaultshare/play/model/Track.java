@@ -5,7 +5,7 @@ package com.vaultshare.play.model;
  * DataSnapshot { key = -JrQS_8DyXPHpa2wX9Iq, value = {added_by=facebook:10105340362088383, src=SOUNDCLOUD,
  * set_id=-JrQS_8GRIbXKHdo-Ysi, duration=27099, src_id=6621631, added_time=2015-06-09T20:14:34.066-07:00} }
  */
-public class Track {
+public class Track extends FirebaseModel {
     public int getDuration() {
         return duration;
     }
@@ -16,7 +16,7 @@ public class Track {
 
     public String added_by;
     public String added_time;
-    public int duration;
+    public int    duration;
     public String set_id;
     public String src;
     public String src_id;

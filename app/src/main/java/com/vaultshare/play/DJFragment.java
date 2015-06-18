@@ -80,13 +80,14 @@ public class DJFragment extends BaseFragment {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
                                 android.R.color.white,
-//                                "http://www.istockphoto.com/image-zoom/2809325/3/380/269/zoom-2809325-3.jpg");
-//                                "http://i.istockimg.com/file_thumbview_approve/21254133/6/stock-photo-21254133-volume-control-knob-on-eletric-guitar-vintage-mood.jpg");
-                                "http://www.istockphoto.com/image-zoom/55863678/3/380/285/zoom-55863678-3.jpg");
+//                                "http://www.istockphoto.com/image-zoom/55863678/3/380/285/zoom-55863678-3.jpg");
+                                "http://www.istockphoto.com/image-zoom/71892/3/380/229/zoom-71892-3.jpg");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
                                 android.R.color.white,
-                                "http://i.istockimg.com/file_thumbview_approve/1222202/6/stock-photo-1222202-dj-spinning-black-and-white.jpg");
+                                "http://www.istockphoto.com/image-zoom/8384717/3/380/228/zoom-8384717-3.jpg");
+//                                "http://www.istockphoto.com/image-zoom/40825544/3/380/253/zoom-40825544-3.jpg");
+//                                "http://i.istockimg.com/file_thumbview_approve/1222202/6/stock-photo-1222202-dj-spinning-black-and-white.jpg");
 //                                "http://www.istockphoto.com/image-zoom/39793/3/380/341/zoom-39793-3.jpg");
 
                 }
@@ -100,7 +101,7 @@ public class DJFragment extends BaseFragment {
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 
-        mViewPager.getViewPager().setCurrentItem(1);
+        mViewPager.getViewPager().setCurrentItem(0);
     }
 
     @Override

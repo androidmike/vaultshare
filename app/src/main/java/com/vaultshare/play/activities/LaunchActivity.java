@@ -17,7 +17,7 @@ public class LaunchActivity extends BaseActivity {
 
     @Override
     public void initUI() {
-
+        SessionController.getInstance().restoreCurrentSession();
     }
 
     public void onResume() {

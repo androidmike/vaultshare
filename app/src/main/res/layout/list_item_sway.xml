@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/cardMarginVertical"
+        android:layout_marginLeft="@dimen/cardMarginHorizontal"
+        android:layout_marginRight="@dimen/cardMarginHorizontal"
+        android:layout_marginTop="@dimen/cardMarginVertical"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="false"
+        app:contentPadding="0dp">
+
+        <FrameLayout android:layout_width="match_parent"
+                     android:background="#000000"
+                     android:layout_height="wrap_content">
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="vertical">
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="vertical">
+                    <TextView android:id="@+id/text"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="Sway in the Afternoon"
+                              android:padding="15dp"
+                              android:textColor="#FFF"
+                              fontFamily="sans-serif"
+                              android:textSize="30sp"/>
+                    <TextView android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:padding="15dp"
+                              android:singleLine="true"
+                              android:ellipsize="marquee"
+                              android:marqueeRepeatLimit ="marquee_forever"
+                              android:scrollHorizontally="true"
+
+                              android:textColor="#66FFFFFF"
+                              android:focusable="true"
+                              android:focusableInTouchMode="true"
+                              android:text="Friday Freestyle"/>
+
+                    <!--<TextView android:layout_width="wrap_content"-->
+                              <!--android:layout_height="wrap_content"-->
+                              <!--android:padding="10dp"-->
+                              <!--android:singleLine="true"-->
+                              <!--android:textColor="#99FFFFFF"-->
+                              <!--android:drawableRight="@drawable/arrow_right_64"-->
+                              <!--android:gravity="left"-->
+                              <!--android:drawablePadding="3dp"-->
+                              <!--android:text="wikippedia"/>-->
+                    <ImageView android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:scaleType="centerCrop"
+                               android:layout_gravity="center"
+                               android:src="@drawable/swayfi63035412213"/>
+                    <TextView android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:background="#BB000000"
+                              android:padding="15dp"
+                              android:text="Tiësto, real name, Tijs Michiel Verwest, is a Dutch trance and progressive house DJ and record producer who began making music at the age of 25.
+
+Tiësto has used various stage names over the course of his career, but Tiësto, which is a variation on a childhood nickname, has stuck. Having worked with multiple artists, Tiësto spent the nineties developing his style and brand of music."
+                              android:textColor="#999"
+                              android:textSize="11sp"/>
+
+
+
+
+            </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="right|top" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:background="#ffaa0b00"
+                          android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:text="LIVE"
+                          android:textColor="#FFFFFF"
+                          android:textSize="14sp"/>
+
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="right|top"
+                          android:background="#ff7b0800"
+
+                          android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:text="6:21"
+                          android:textColor="#FFFFFF"
+                          android:textSize="14sp"/>
+            </LinearLayout>
+        </FrameLayout>
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
