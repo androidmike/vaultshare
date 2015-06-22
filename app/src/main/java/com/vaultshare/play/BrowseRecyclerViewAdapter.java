@@ -79,7 +79,6 @@ public class BrowseRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         }
         view = LayoutInflater.from(parent.getContext())
                 .inflate(ll, parent, false);
-
         return new RecyclerView.ViewHolder(view) {
         };
 //        switch (viewType) {
@@ -146,6 +145,11 @@ public class BrowseRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         View rec = holder.itemView.findViewById(R.id.rec_indicator);
+
+        View marqueeText = holder.itemView.findViewById(R.id.marquee_text);
+        if (marqueeText != null) {
+            marqueeText.setSelected(true);
+        }
         if (rec != null) {
 //            flashRec(rec);
 

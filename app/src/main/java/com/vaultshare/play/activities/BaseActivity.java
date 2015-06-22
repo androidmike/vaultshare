@@ -1,8 +1,13 @@
 package com.vaultshare.play.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -27,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by mchang on 6/11/15.
@@ -41,6 +47,11 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     AccessTokenTracker accessTokenTracker;
     CallbackManager    callbackManager;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     public void onResume() {
         super.onResume();
@@ -70,6 +81,11 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         ButterKnife.inject(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.BLACK);
+        }
         initUI();
 
         callbackManager = CallbackManager.Factory.create();
