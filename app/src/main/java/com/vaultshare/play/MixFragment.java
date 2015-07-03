@@ -1,14 +1,13 @@
 package com.vaultshare.play;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -17,21 +16,14 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.software.shell.fab.ActionButton;
 import com.squareup.otto.Subscribe;
-import com.vaultshare.play.model.FirebaseModel;
-import com.vaultshare.play.model.Station;
 import com.vaultshare.play.model.Track;
 
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentSkipListSet;
 
 import butterknife.InjectView;
 
@@ -106,8 +98,11 @@ public class MixFragment extends BaseFragment {
                 initializeTracklist(setRef.child("tracks"));
 
 
-                mAdapter = new RecyclerViewMaterialAdapter(new MixRecyclerViewAdapter(getActivity(), mModels, pendingSetId));
+                mAdapter = new RecyclerViewMaterialAdapter(new MixRecyclerViewAdapter(getActivity(), mRecyclerView, mModels, pendingSetId));
                 mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
                 itemTouchHelper.attachToRecyclerView(mRecyclerView);
                 // Material viewpager boilerplate
                 MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
