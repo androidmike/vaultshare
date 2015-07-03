@@ -17,6 +17,9 @@ public class Station extends FirebaseModel {
     public String                   live_track_id;
     public String                   live_set_start_time;
     public HashMap<String, String>  live_users; // UID:Join Time
+    public String                   dj_descirption;
+    public String                   dj_name;
+    public String dj_picture_large;
 
     public Station() {
     }

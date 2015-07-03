@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+              android:orientation="horizontal">
+    <TextView fontPath="fonts/wg_gilded_hand_font.ttf"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="left"
+              android:text="Rosa\nJames"
+              android:textColor="#99ffffff"
+              android:textSize="50sp">
+
+    </TextView>
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:fitsSystemWindows="true"
+        android:src="@drawable/avatar_hex_rosa"/>
+</LinearLayout>

@@ -36,6 +36,18 @@ public abstract class BaseFragment extends Fragment {
             (Context.LAYOUT_INFLATER_SERVICE);
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Bus.getInstance().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Bus.getInstance().unregister(this);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Setup View
         View rootView = inflater.inflate(getLayout(), container, false);

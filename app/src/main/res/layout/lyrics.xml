@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="600dp"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:padding="10dp">
+        <TextView android:id="@+id/song_title" fontPath="fonts/bebas_bold.otf"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Song Cry"
+                  android:textSize="24sp"/>
+        <TextView android:id="@+id/artist" fontPath="fonts/bebas_book.otf"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:paddingLeft="10dp"
+                  android:text="Jay-Z"
+                  android:textSize="14sp"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:paddingBottom="10dp"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+
+        <TextView android:id="@+id/lyric_1"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:ellipsize="end"
+                  android:fontFamily="sans-serif-condensed"
+                  android:padding="10dp"
+                  android:text="[Produced by Just Blaze]
+
+[Verse 1]
+
+Good dude, I know you love me like cooked food
+Even though a nigga gotta move like a crook move
+We was together on the block since free lunch
+We should've been together having Four Seasons brunch
+We used to use umbrellas to "
+                  android:textColor="#000"
+                  android:textSize="11sp"/>
+
+        <TextView android:id="@+id/lyric_2"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:ellipsize="end"
+                  android:fontFamily="sans-serif-condensed"
+                  android:padding="10dp"
+                  android:text="On repeat, the CD of BIG's
+Watching Bonnie and Clyde, pretending to be that shit
+Empty gun in your hand saying,
+
+Shopping sprees, pull out your Visa quick
+A nigga had very bad credit, you helped me lease that whip
+You helped me get the keys to that V dot 6
+We was so happy poor but when we got rich"
+                  android:textColor="#000"
+                  android:textSize="11sp"/>
+
+        <TextView android:id="@+id/lyric_3"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:ellipsize="end"
+                  android:fontFamily="sans-serif-condensed"
+                  android:padding="10dp" android:text="A face of stone, was shocked on the other end of the phone
+Word back home is that you had a special friend
+So what was oh so special then
+You have given away without getting at me
+That's your fault, how many times you forgiven me
+How was I to know that you was plain sick of me?"
+                  android:textColor="#000"
+                  android:textSize="11sp"/>
+
+    </LinearLayout>
+</LinearLayout>

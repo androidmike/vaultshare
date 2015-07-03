@@ -1,25 +1,28 @@
 package com.vaultshare.play;
 
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.github.florent37.materialviewpager.HeaderDesign;
 import com.github.florent37.materialviewpager.MaterialViewPager;
-import com.vaultshare.play.fragments.ScrollFragment;
-import com.vaultshare.play.fragments.WebViewFragment;
 
 import butterknife.InjectView;
 
 /**
  * Created by mchang on 6/12/15.
  */
-public class DJFragment extends BaseFragment {
+public class DigRootFragment extends BaseFragment {
+
     @InjectView(R.id.materialViewPager)
     MaterialViewPager mViewPager;
-    Toolbar           mFragmentToolbar;
-    Toolbar           mBaseToolbar;
+    Toolbar mFragmentToolbar;
+    Toolbar mBaseToolbar;
 
     @Override
     public void onResume() {
@@ -27,18 +30,23 @@ public class DJFragment extends BaseFragment {
         mBaseToolbar = ((MainActivity) getActivity()).getToolbar();
         ((MainActivity) getActivity()).setToolbarVisibility(View.GONE);
         mFragmentToolbar = mViewPager.getToolbar(); // Handle local toolbar
-        mFragmentToolbar.setNavigationIcon(R.drawable.com_facebook_button_icon);
+        mFragmentToolbar.setNavigationIcon(R.drawable.menu_red_64);
         mFragmentToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bus.getInstance().post(new DrawerToggle());
             }
         });
+
+        Window window = getActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(Color.parseColor("#222222"));
     }
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_dj;
+        return R.layout.fragment_browse_stations;
     }
 
     @Override
@@ -49,11 +57,20 @@ public class DJFragment extends BaseFragment {
             public Fragment getItem(int position) {
                 switch (position) {
                     case 0:
-                        return MixFragment.newInstance();
+                        Fragment fragment = FollowingFragment.newInstance();
+                        Bundle args = new Bundle();
+                        args.putSerializable(FollowingFragment.LISTING_TYPE, FollowingFragment.ListingType.FOLLOWING);
+                        fragment.setArguments(args);
+                        return fragment;
                     case 1:
-                        return DropFragment.newInstance();
+                        Fragment fragment1 = FollowingFragment.newInstance();
+                        Bundle args1 = new Bundle();
+                        args1.putSerializable(FollowingFragment.LISTING_TYPE, FollowingFragment.ListingType.HYPE);
+                        fragment1.setArguments(args1);
+                        return fragment1;
+                    default:
+                        return null;
                 }
-                return null;
             }
 
             @Override
@@ -65,9 +82,9 @@ public class DJFragment extends BaseFragment {
             public CharSequence getPageTitle(int position) {
                 switch (position) {
                     case 0:
-                        return "Mix";
+                        return "Following";
                     case 1:
-                        return "Drop";
+                        return "The Hype";
                 }
                 return "";
             }
@@ -78,18 +95,14 @@ public class DJFragment extends BaseFragment {
             public HeaderDesign getHeaderDesign(int page) {
                 switch (page) {
                     case 0:
-                        return HeaderDesign.fromColorResAndUrl(
-                                android.R.color.white,
-//                                "http://www.istockphoto.com/image-zoom/55863678/3/380/285/zoom-55863678-3.jpg");
-                                "http://www.istockphoto.com/image-zoom/71892/3/380/229/zoom-71892-3.jpg");
+                        return HeaderDesign.fromColorAndDrawable(Color.parseColor("#000000"), null);
+//                        return HeaderDesign.fromColorAndDrawable(
+//                                Color.parseColor("#000000"), getResources().getDrawable(R.drawable.istock_speakers));
                     case 1:
-                        return HeaderDesign.fromColorResAndUrl(
-                                android.R.color.white,
-                                "http://www.istockphoto.com/image-zoom/8384717/3/380/228/zoom-8384717-3.jpg");
-//                                "http://www.istockphoto.com/image-zoom/40825544/3/380/253/zoom-40825544-3.jpg");
-//                                "http://i.istockimg.com/file_thumbview_approve/1222202/6/stock-photo-1222202-dj-spinning-black-and-white.jpg");
-//                                "http://www.istockphoto.com/image-zoom/39793/3/380/341/zoom-39793-3.jpg");
 
+                        return HeaderDesign.fromColorAndDrawable(Color.parseColor("#000000"), null);
+//                        return HeaderDesign.fromColorAndDrawable(
+//                                Color.parseColor("#000000"), getResources().getDrawable(R.drawable.istock_arms_dj));
                 }
 
                 //execute others actions if needed (ex : modify your header logo)
@@ -100,8 +113,8 @@ public class DJFragment extends BaseFragment {
 
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
-
-        mViewPager.getViewPager().setCurrentItem(0);
+        mViewPager.getPagerTitleStrip().setTextColor(Color.parseColor("#99FFFFFF"));
+        mViewPager.getViewPager().setCurrentItem(1);
     }
 
     @Override

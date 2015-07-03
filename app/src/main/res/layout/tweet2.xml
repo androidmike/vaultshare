@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/cardMarginVertical"
+    android:layout_marginLeft="@dimen/cardMarginHorizontal"
+    android:layout_marginRight="@dimen/cardMarginHorizontal"
+    android:layout_marginTop="@dimen/cardMarginVertical"
+    android:background="@android:color/white"
+    app:cardElevation="4dp" tools:showIn="@layout/fragment_profile_tweet">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:paddingTop="10dp"
+                   android:paddingLeft="10dp"
+                   android:src="@drawable/avatar_hex_rosa"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:drawablePadding="5dp"
+                      android:text="\@RosaNow • 2h"
+                      android:textColor="#999"
+                      android:textSize="12sp"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingTop="5dp"
+                      android:text="Just posted a photo https://instagram.com/p/4TO2a7L8YG/ "
+                      android:textColor="#666"
+                      android:textSize="14sp"/>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                <Button android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:text="Retweet"/>
+                <Button android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:text="Favorite"/>
+                <Button android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:text="Reply"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

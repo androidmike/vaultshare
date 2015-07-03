@@ -20,6 +20,7 @@ import com.vaultshare.play.fragments.Login1;
 import com.vaultshare.play.fragments.Login2;
 import com.vaultshare.play.fragments.Login3;
 import com.vaultshare.play.fragments.Login4;
+import com.vaultshare.play.fragments.Login5;
 import com.vaultshare.play.fragments.Login6;
 
 import butterknife.InjectView;
@@ -129,7 +130,7 @@ public class LoginActivity extends BaseActivity {
                 case 3:
                     return Login4.newInstance();
                 case 4:
-                    return Login6.newInstance();
+                    return Login5.newInstance();
                 case 5:
                     return Login6.newInstance();
 

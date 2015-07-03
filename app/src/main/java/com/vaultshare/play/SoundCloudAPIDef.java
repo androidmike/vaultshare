@@ -15,6 +15,11 @@ import retrofit.http.Query;
  * Created by mchang on 6/8/15.
  */
 public interface SoundCloudAPIDef {
+
+    @GET("/tracks")
+    void search(@Query("q") String query, @Query("limit") int limit, @Query("linked_partitioning") int pageNum, @Query("client_id") String clientId, Callback<SoundCloudPaginatedResponse> cb);
+
     @GET("/tracks/{track_id}.json")
     void getTrackInfo(@Path("track_id") String trackId, @Query("client_id") String clientId, Callback<SoundCloudTrackResp> cb);
+
 }

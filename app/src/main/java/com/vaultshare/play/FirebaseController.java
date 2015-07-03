@@ -63,6 +63,15 @@ public class FirebaseController {
         return FirebaseController.getInstance().getRef().child("users");
     }
 
+    public Query getFollowingStationsRef() {
+        return getRef().child("followed_by_" + SessionController.getInstance().getSession().getUid());
+
+    }
+
+    public Query getHypeStationsRef() {
+        return getRef().child("hyped_stations");
+    }
+
     public enum Source {
         SPOTIFY, SOUNDCLOUD, VS;
     }
@@ -226,10 +235,10 @@ public class FirebaseController {
     public void testCreateRoomTracksSets() {
         //Create tracks
         List trackIds = new ArrayList();
-        trackIds.add(addTrack(TimeUtils.getCurrentTimestamp(), SessionController.getInstance().getSession().getUid(),
-                Track.Source.SOUNDCLOUD, String.valueOf(63500636)));
-        trackIds.add(addTrack(TimeUtils.getCurrentTimestamp(), SessionController.getInstance().getSession().getUid(),
-                Track.Source.SOUNDCLOUD, String.valueOf(183347321)));
+//        trackIds.add(addTrack(TimeUtils.getCurrentTimestamp(), SessionController.getInstance().getSession().getUid(),
+//                Track.Source.SOUNDCLOUD, String.valueOf(63500636)));
+//        trackIds.add(addTrack(TimeUtils.getCurrentTimestamp(), SessionController.getInstance().getSession().getUid(),
+//                Track.Source.SOUNDCLOUD, String.valueOf(183347321)));
 
         String stationId = createStation("A new station", "A new description");
 
@@ -412,7 +421,8 @@ public class FirebaseController {
     }
 
 
-    public String addTrack(final String addedTime, final String addedBy, final Track.Source src, final String srcId) {
+    public String addTrack(final String trackTitle, final String trackArtist,
+                           final String addedTime, final String addedBy, final Track.Source src, final String srcId) {
 
         final Firebase trackRef = FirebaseController.getInstance().getRef().child("tracks").push();
         SoundCloud.getInstance().getTrackInfo(srcId, new SoundCloud.ScTrackInfoCallback() {
@@ -421,6 +431,9 @@ public class FirebaseController {
                 HashMap map = new HashMap();
                 map.put("added_time", addedTime);
                 map.put("added_by", addedBy);
+
+                map.put("track_artist", trackArtist);
+                map.put("track_title", trackTitle);
                 map.put("src", src.name());
                 map.put("src_id", srcId);
                 map.put("duration", soundCloudTrackResp.duration);

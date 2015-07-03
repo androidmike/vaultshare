@@ -6,8 +6,14 @@ package com.vaultshare.play.model;
  * set_id=-JrQS_8GRIbXKHdo-Ysi, duration=27099, src_id=6621631, added_time=2015-06-09T20:14:34.066-07:00} }
  */
 public class Track extends FirebaseModel {
+    public String name;
+
     public int getDuration() {
         return duration;
+    }
+
+    public String getDisplayName() {
+        return name;
     }
 
     public enum Source {
@@ -16,6 +22,8 @@ public class Track extends FirebaseModel {
 
     public String added_by;
     public String added_time;
+    public String track_artist;
+    public String track_title;
     public int    duration;
     public String set_id;
     public String src;

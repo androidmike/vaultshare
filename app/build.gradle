@@ -31,7 +31,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:support-v4:22.1.1'
-    compile 'com.android.support:recyclerview-v7:22.1.1'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.firebase:firebase-client-android:2.3.0+'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
@@ -47,4 +46,15 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
+    compile 'com.etsy.android.grid:library:1.0.5' // see changelog
+    compile 'com.github.rahatarmanahmed:circularprogressview:2.3.2'
+    compile 'com.android.support:recyclerview-v7:22.2.+'
+    compile 'joda-time:joda-time:2.3'
+    compile 'com.github.shell-software:fab:1.1.2'
+    compile 'com.amazonaws:aws-android-sdk-core:2.+'
+    compile 'com.amazonaws:aws-android-sdk-cognito:2.+'
+    compile 'com.amazonaws:aws-android-sdk-s3:2.+'
+    compile 'com.amazonaws:aws-android-sdk-ddb:2.+'
+    compile 'com.afollestad:material-dialogs:0.7.6.0'
+    compile 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.7.2'
 }

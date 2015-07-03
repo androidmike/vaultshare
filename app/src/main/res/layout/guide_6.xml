@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:orientation="vertical"
+                tools:ignore="MissingPrefix">
+
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_alignParentBottom="true"
+                 android:layout_alignParentLeft="true"
+                 android:layout_alignParentRight="true"
+                 android:layout_alignParentTop="true">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="top|left"
+                      android:orientation="vertical"
+                      android:paddingTop="30dp">
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/fb_login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"/>
+            <TextView fontPath="fonts/bebas_bold.otf"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Let's Get Started"
+                      android:paddingLeft="20dp"
+                      android:paddingRight="20dp"
+                      android:textAllCaps="true"
+                      android:textColor="#af348b"
+                      android:textSize="42sp"/>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:lineSpacingExtra="10dp"
+                      android:paddingLeft="20dp"
+                      android:paddingRight="20dp"
+                      android:paddingTop="25dp"
+                      android:text="Sign in with any of the following services."
+                      android:textColor="#666"
+                      android:paddingBottom="25dp"
+                      android:textSize="16sp"/>
+            <TextView fontPath="fonts/bebas_bold.otf"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="#3c5a99"
+                      android:gravity="right"
+                      android:paddingLeft="50dp"
+                      android:paddingRight="50dp"
+                      android:text="Facebook"
+                      android:textColor="#FFF"
+                      android:textSize="85sp"/>
+
+            <TextView fontPath="fonts/bebas_bold.otf"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="#658e18"
+                      android:gravity="right"
+                      android:paddingLeft="50dp"
+                      android:paddingRight="50dp"
+                      android:text="Spotify"
+                      android:textColor="#FFF"
+                      android:textSize="85sp"/>
+
+
+            <TextView fontPath="fonts/bebas_bold.otf"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="#4ba7dd"
+                      android:gravity="right"
+                      android:paddingLeft="50dp"
+                      android:paddingRight="50dp"
+                      android:text="Twitter"
+                      android:textColor="#FFF"
+                      android:textSize="85sp"/>
+
+        </LinearLayout>
+        <VideoView android:id="@+id/video_view"
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentBottom="true"
+                   android:layout_gravity="bottom"></VideoView>
+    </FrameLayout>
+</RelativeLayout>

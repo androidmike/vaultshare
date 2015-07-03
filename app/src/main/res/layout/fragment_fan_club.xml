@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+    android:id="@+id/scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/material_view_pager_placeholder"/>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/cardMarginVertical"
+            android:layout_marginLeft="@dimen/cardMarginHorizontal"
+            android:layout_marginRight="@dimen/cardMarginHorizontal"
+            android:layout_marginTop="@dimen/cardMarginVertical"
+            android:background="@android:color/white"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="20dp">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:fontFamily="sans-serif-light"
+
+                          android:text="Join Today"
+                          android:textColor="#333"
+                          android:textSize="24sp"
+                    />
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:fontFamily="sans-serif-condensed"
+                          android:text="2329 fans and counting..."
+                          android:paddingBottom="20dp"
+                          android:textColor="#999"
+                          android:textSize="12sp"
+                    />
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginBottom="10dp"
+                          android:drawableLeft="@drawable/vault_icon_blue"
+                          android:drawablePadding="5dp"
+                          android:gravity="center"
+                          android:text="Private Vaults"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginBottom="10dp"
+                          android:drawableLeft="@drawable/tie_icon"
+                          android:drawablePadding="5dp"
+                          android:gravity="center"
+                          android:text="Member-Only Events"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginBottom="10dp"
+                          android:drawableLeft="@drawable/lyric_icon"
+                          android:drawablePadding="5dp"
+                          android:gravity="center"
+                          android:text="VIP Fan Content Access"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginBottom="10dp"
+                          android:drawableLeft="@drawable/vial_icon"
+                          android:drawablePadding="5dp"
+                          android:gravity="center"
+                          android:text="Exclusives from the Lab"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:gravity="center"
+                          android:paddingBottom="10dp"
+                          android:text="Join my fan club now to unlock all of the member only exclusives. Be notified of upcoming shows first!"/>
+
+                <Button android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:background="#203099"
+                        android:padding="20dp"
+                        android:text="Become a Fan"
+                        android:textColor="#FFFFFF"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</com.github.ksoichiro.android.observablescrollview.ObservableScrollView>

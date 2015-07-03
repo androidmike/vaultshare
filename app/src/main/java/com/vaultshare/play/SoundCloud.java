@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.firebase.client.Firebase;
 
+import java.util.List;
 import java.util.concurrent.Executors;
 
 import retrofit.Callback;
@@ -40,6 +41,24 @@ public class SoundCloud {
     }
 
     public static final String TAG = SoundCloud.class.getCanonicalName();
+
+    public void search(String query) {
+        final String finalQuery = query;
+        api.search(query, 100, 1, App.getContext().getString(R.string.soundcloud_id), new Callback<SoundCloudPaginatedResponse>() {
+
+            @Override
+            public void success(SoundCloudPaginatedResponse soundCloudTrackResp, Response response) {
+                //  cb.onInfoRetrieved(soundCloudTrackResp);
+                Bus.getInstance().post(new QueryResult(finalQuery, soundCloudTrackResp));
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                int j = 0;
+                //Log.e(TAG, String.format("getTrackInfo failed for %s: %s", trackId, LogUtil.getString(error)));
+            }
+        });
+    }
 
     public interface ScTrackInfoCallback {
         void onInfoRetrieved(SoundCloudTrackResp soundCloudTrackResp);

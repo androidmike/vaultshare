@@ -3,9 +3,10 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#9F5098"
+                android:background="#fff"
                 android:orientation="vertical"
                 tools:ignore="MissingPrefix">
+
 
     <FrameLayout android:layout_width="match_parent"
                  android:layout_height="match_parent"
@@ -13,49 +14,53 @@
                  android:layout_alignParentLeft="true"
                  android:layout_alignParentRight="true"
                  android:layout_alignParentTop="true"
-                 android:paddingTop="30dp">
+        >
+        <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                   android:scaleType="centerCrop"
+                   android:src="@drawable/istock_white_mic"
+                   android:visibility="gone"/>
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:layout_gravity="top|left"
-                      android:orientation="vertical"
+                      android:layout_gravity="top|left" android:orientation="vertical"
                       android:paddingLeft="20dp"
-                      android:paddingRight="20dp">
+                      android:paddingRight="20dp"
+                      android:paddingTop="30dp">
             <TextView fontPath="fonts/bebas_bold.otf"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:text="Make a Set"
                       android:textAllCaps="true"
-                      android:textColor="#FFFFFF"
+                      android:textColor="#af348b"
                       android:textSize="42sp"/>
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:lineSpacingExtra="10dp"
                       android:paddingTop="25dp"
                       android:text="Easily create professional-sounding mix like a Deejay. Add songs from anywhere on the internet or upload your own!"
-                      android:textColor="#FFFFFF"
+                      android:textColor="#666"
                       android:textSize="16sp"/>
         </LinearLayout>
-        <ImageView android:layout_width="wrap_content"
+        <ImageView android:id="@+id/white_notes"
+                   android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:paddingLeft="40dp"
-                   android:id="@+id/white_notes"
                    android:paddingTop="240dp"
                    android:src="@drawable/white_notes"/>
-        <ImageView android:layout_width="wrap_content"
+        <ImageView android:id="@+id/white_notes2"
+                   android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:paddingLeft="40dp"
-                   android:id="@+id/white_notes2"
                    android:paddingTop="320dp"
                    android:src="@drawable/white_notes"/>
-        <ImageView android:layout_width="wrap_content"
+        <ImageView android:id="@+id/white_notes3"
+                   android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:paddingLeft="40dp"
-                   android:id="@+id/white_notes3"
                    android:paddingTop="400dp"
                    android:src="@drawable/white_notes"/>
-        <ImageView android:layout_width="wrap_content"
+        <ImageView android:id="@+id/white_notes4"
+                   android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:paddingLeft="40dp"
-                   android:id="@+id/white_notes4"
                    android:paddingTop="425dp"
                    android:src="@drawable/white_notes"/>
         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -65,8 +70,9 @@
                    android:src="@drawable/upload_source"/>
         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                    android:layout_gravity="right|top"
+                   android:paddingBottom="40dp"
                    android:paddingRight="20dp"
-                   android:paddingTop="200dp"
+                   android:paddingTop="160dp"
                    android:src="@drawable/mix_device"/>
     </FrameLayout>
 </RelativeLayout>

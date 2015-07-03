@@ -39,12 +39,23 @@
             android:name=".StationActivity">
         </activity>
         <activity
+            android:name=".SearchActivity">
+        </activity>
+        <activity
             android:name=".MainActivity">
         </activity>
         <activity
             android:name=".activities.LoginActivity">
         </activity>
-
+        <activity
+            android:name=".activities.MixtapeActivity">
+        </activity>
+        <activity
+            android:name=".demo_eds.ExpandableDraggableSwipeableExampleActivity">
+        </activity>
+        <activity
+            android:name=".activities.ProfileActivity">
+        </activity>
         <activity android:name="com.facebook.FacebookActivity"
                   android:configChanges=
                       "keyboard|keyboardHidden|screenLayout|screenSize|orientation"

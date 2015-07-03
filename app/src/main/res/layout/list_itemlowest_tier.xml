@@ -21,7 +21,7 @@
 
         <FrameLayout android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:background="#999">
+                     android:background="#000">
 
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="wrap_content"
@@ -32,86 +32,46 @@
                     <LinearLayout android:layout_width="match_parent"
                                   android:layout_height="wrap_content"
                                   android:gravity="left|center_vertical"
-                                  android:orientation="vertical"
-                                  android:padding="15dp">
+                                  android:orientation="horizontal"
+                                  android:paddingLeft="15dp"
+                                  android:paddingRight="15dp"
+                                  android:paddingTop="15dp">
                         <TextView android:id="@+id/text"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
-                                  android:drawableLeft="@drawable/avatar"
+                                  android:drawableLeft="@drawable/avatar_hex"
+                                  android:drawablePadding="5dp"
                                   android:fontFamily="sans-serif-light"
-                                  android:text="MICK"
-                                  android:textColor="#FFF"
-                                  android:textSize="24sp"/>
-                            <LinearLayout android:layout_width="wrap_content"
-                                          android:layout_height="wrap_content"
-                                          android:layout_gravity="bottom|right"
-                                          android:layout_margin="5dp"
-                                          android:background="@drawable/solid_red"
-                                          android:gravity="center_vertical"
-                                          android:orientation="horizontal"
-                                          android:paddingBottom="6dp"
-                                          android:paddingLeft="10dp"
-                                          android:paddingRight="10dp"
-                                          android:paddingTop="6dp">
-                                <ImageButton android:id="@+id/rec_indicator"
-                                             android:layout_width="10dp"
-                                             android:layout_height="10dp"
-                                             android:background="@drawable/circle_red_outline"/>
-                                <TextView android:layout_width="wrap_content"
-                                          android:layout_height="wrap_content"
-                                          android:paddingLeft="5dp"
-                                          android:text="REC"
-                                          android:textColor="#FFFFFF"
-                                          android:textSize="12sp"
-                                          android:textStyle="bold"/>
-                            </LinearLayout>
+                                  android:gravity="center_vertical"
+                                  android:text="DJ Reed"
+                                  android:textColor="#666"
+                                  android:textSize="26sp"/>
 
-                        <TextView android:id="@+id/sub_line"
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:text="Number one DJ in New York"
-                                  android:textColor="#FFF"
-                                  android:textSize="11sp"
-                                  android:textStyle="bold"
-                                  android:visibility="gone"/>
+                        <Button android:layout_width="wrap_content"
+                                android:id="@+id/rec"
+                                android:visibility="gone"
+                                android:layout_marginLeft="20dp"
+                                style="?android:attr/borderlessButtonStyle"
+                                android:textColor="#999999"
+                                android:text="Rec"
+                                android:layout_height="wrap_content"
+                            />
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/marquee_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:background="#000000"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:lines="1"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:padding="15dp"
-                        android:scrollHorizontally="true"
-                        android:text="Summertime Volume 5 Launch          7AM-9AM Weekdays       Latest Hip hop and RB"
-                        android:textColor="#66FFFFFF"
-                        android:textStyle="bold"/>
-
+                    <TextView android:id="@+id/sub_line"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:padding="15dp"
+                              android:text="Favorite DJ in Brooklyn, NY. Neo-soul is my specialty. Tune in for my favorites."
+                              android:textColor="#999"
+                              android:textSize="11sp"
+                              android:visibility="visible"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="1px"
+                              android:background="#66000000"/>
                     <LinearLayout android:layout_width="match_parent"
                                   android:layout_height="wrap_content"
-                                  android:background="#BB000000"
-                                  android:orientation="vertical"
-                                  android:padding="15dp">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:text="Tiësto, real name, Tijs Michiel Verwest, is a Dutch trance and progressive house DJ and record producer who began making music at the age of 25.
-
-Tiësto has used various stage names over the course of his career, but Tiësto, which is a variation on a childhood nickname, has stuck. Having worked with multiple artists, Tiësto spent the nineties developing his style and brand of music."
-                                  android:textColor="#999"
-                                  android:textSize="11sp"/>
-
-
-                    </LinearLayout>
-                    <LinearLayout android:layout_width="match_parent"
-                                  android:orientation="horizontal"
-                                  android:layout_height="wrap_content"
-                                  android:background="#BB000000">
+                                  android:orientation="horizontal">
                         <TextView android:id="@+id/vinyl"
+                                  fontFamily="sans-serif-condensed"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
                                   android:drawableLeft="@drawable/graph_up"
@@ -119,10 +79,17 @@ Tiësto has used various stage names over the course of his career, but Tiësto,
                                   android:gravity="center"
                                   android:padding="10dp"
                                   android:text="Blowing Up"
-                                  android:textColor="#99FFFFFF"
-                                  android:textSize="12sp"
-                                  android:textStyle="bold"/>
-
+                                  android:textColor="#666"
+                                  android:textSize="12sp"/>
+                        <TextView android:layout_width="0dp"
+                                  android:layout_height="wrap_content"
+                                  android:layout_weight="1"
+                                  android:drawablePadding="5dp"
+                                  android:drawableRight="@drawable/arrow_top"
+                                  android:gravity="right"
+                                  android:padding="10dp"
+                                  android:text="203 Listeners"
+                                  android:textColor="#666" android:textSize="12sp"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -130,16 +97,30 @@ Tiësto has used various stage names over the course of his career, but Tiësto,
             <LinearLayout android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_gravity="right|top" android:orientation="vertical">
-                <TextView android:id="@+id/live_text"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:background="#ffaa0b00"
-                          android:paddingLeft="10dp"
-                          android:paddingRight="10dp"
-                          android:text="LIVE"
-                          android:textColor="#FFFFFF"
-                          android:textSize="18sp"
-                          android:textStyle="bold"/>
+
+                <LinearLayout android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_gravity="bottom|right"
+                              android:layout_margin="5dp"
+                              android:background="@drawable/solid_red"
+                              android:gravity="center_vertical"
+                              android:orientation="horizontal"
+                              android:paddingBottom="6dp"
+                              android:paddingLeft="10dp"
+                              android:paddingRight="10dp"
+                              android:paddingTop="6dp">
+                    <ImageButton android:id="@+id/rec_indicator"
+                                 android:layout_width="10dp"
+                                 android:layout_height="10dp"
+                                 android:background="@drawable/white_outline_circle"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:paddingLeft="5dp"
+                              android:text="REC"
+                              android:textColor="#FFFFFF"
+                              android:textSize="12sp"
+                              android:textStyle="bold"/>
+                </LinearLayout>
                 <TextView android:id="@+id/rewind_text"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"

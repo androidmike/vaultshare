@@ -18,9 +18,9 @@ import butterknife.InjectView;
  */
 public class Login6 extends BaseFragment implements LoginFragImpl {
 
+
     @InjectView(R.id.video_view)
     VideoView videoView;
-
     /**
      * Create a new instance of CountingFragment, providing "num"
      * as an argument.
@@ -49,7 +49,7 @@ public class Login6 extends BaseFragment implements LoginFragImpl {
         MediaController mediaController = new MediaController(getActivity());
         mediaController.setAnchorView(videoView);
         try {
-            String uri = "android.resource://" + App.getContext().getPackageName() + "/" + R.raw.v000017012826;
+            String uri = "android.resource://" + App.getContext().getPackageName() + "/" + R.raw.v_bouncing_000010604598;
             videoView.setVideoURI(Uri.parse(uri));
             videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
@@ -61,8 +61,6 @@ public class Login6 extends BaseFragment implements LoginFragImpl {
         } catch (Exception e) {
 
         }
-
-
     }
 
 

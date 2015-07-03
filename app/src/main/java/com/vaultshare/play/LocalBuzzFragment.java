@@ -59,20 +59,20 @@ public class LocalBuzzFragment extends Fragment {
     }
 
     private Query mRef;
-    private List<FirebaseModel> mModels = new ArrayList<>();
+    private List<Station> mModels = new ArrayList<>();
     private Map<String, FirebaseModel> mModelKeys;
     private ChildEventListener         mListener;
 
     private void initializeStations(Query mRef, final Class<? extends FirebaseModel> mModelClass) {
         this.mRef = mRef;
-        mModels = new ArrayList<FirebaseModel>();
+        mModels = new ArrayList<Station>();
         mModelKeys = new HashMap<String, FirebaseModel>();
         // Look for all child events. We will then map them to our own internal ArrayList, which backs ListView
         mListener = this.mRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
 
-                FirebaseModel model = dataSnapshot.getValue(mModelClass);
+                Station model = (Station) dataSnapshot.getValue(mModelClass);
                 model.setKey(dataSnapshot.getKey());
                 mModelKeys.put(dataSnapshot.getKey(), model);
 
@@ -102,7 +102,7 @@ public class LocalBuzzFragment extends Fragment {
                 FirebaseModel newModel = dataSnapshot.getValue(mModelClass);
                 int index = mModels.indexOf(oldModel);
                 newModel.setKey(dataSnapshot.getKey());
-                mModels.set(index, newModel);
+                mModels.set(index, (Station) newModel);
                 mModelKeys.put(modelName, newModel);
 
                 mAdapter.notifyDataSetChanged();
@@ -132,15 +132,15 @@ public class LocalBuzzFragment extends Fragment {
                 int index = mModels.indexOf(oldModel);
                 mModels.remove(index);
                 if (previousChildName == null) {
-                    mModels.add(0, newModel);
+                    mModels.add(0, (Station) newModel);
                 } else {
                     FirebaseModel previousModel = mModelKeys.get(previousChildName);
                     int previousIndex = mModels.indexOf(previousModel);
                     int nextIndex = previousIndex + 1;
                     if (nextIndex == mModels.size()) {
-                        mModels.add(newModel);
+                        mModels.add((Station) newModel);
                     } else {
-                        mModels.add(nextIndex, newModel);
+                        mModels.add(nextIndex, (Station) newModel);
                     }
                 }
                 mAdapter.notifyDataSetChanged();

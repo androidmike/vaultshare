@@ -3,7 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#7ED321"
+                android:background="#fff"
                 android:orientation="vertical"
                 tools:ignore="MissingPrefix">
 
@@ -13,30 +13,35 @@
                  android:layout_alignParentLeft="true"
                  android:layout_alignParentRight="true"
                  android:layout_alignParentTop="true"
-                 android:paddingTop="30dp">
+        >
+
+        <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/tapes"
+                   android:paddingTop="500dp"
+                   android:scaleType="centerCrop"/>
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:layout_gravity="top|left"
-                      android:orientation="vertical"
+                      android:layout_gravity="top|left" android:orientation="vertical"
                       android:paddingLeft="20dp"
-                      android:paddingRight="20dp">
+                      android:paddingRight="20dp"
+                      android:paddingTop="30dp">
             <TextView fontPath="fonts/bebas_bold.otf"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:text="Share a Set"
                       android:textAllCaps="true"
-                      android:textColor="#FFFFFF"
+                      android:textColor="#af348b"
                       android:textSize="42sp"/>
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:lineSpacingExtra="10dp"
                       android:paddingTop="25dp"
                       android:text="Share that mixtape with your friend, or make it public and promote your set with the world and watch it blow up!"
-                      android:textColor="#FFFFFF"
+                      android:textColor="#666"
                       android:textSize="16sp"/>
             <ImageView android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:paddingTop="40dp"
                        android:layout_gravity="center"
+                       android:paddingTop="40dp"
                        android:src="@drawable/export"/>
 
         </LinearLayout>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+    android:id="@+id/scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/material_view_pager_placeholder"/>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/cardMarginVertical"
+            android:layout_marginLeft="@dimen/cardMarginHorizontal"
+            android:layout_marginRight="@dimen/cardMarginHorizontal"
+            android:layout_marginTop="@dimen/cardMarginVertical"
+            android:background="@android:color/white"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+               >
+
+                <ImageView android:layout_width="match_parent"
+                           android:layout_height="300dp"
+                           android:scaleType="centerCrop"
+                           android:src="@drawable/amanda_diva"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:fontFamily="sans-serif-light"
+                          android:paddingBottom="10dp" android:paddingTop="20dp"
+                          android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:text="Neo-Soul Music-preneur"
+                          android:textSize="24sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:lineSpacingExtra="5dp"
+                          android:paddingBottom="20dp"
+                          android:text="Terry Church is co-founder of JustGo Music, a social media management platform that helps musicians grow their fanbase. Terry has done social media comms for some of the biggest names in dance music including David Guetta, Dubfire, Eric Prydz and Luciano. He is the former Editor of Beatport and a former DJ Magazine editor."
+                          android:textColor="#999"
+                          android:textSize="16sp"    android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                    />
+                <View android:layout_width="match_parent" android:layout_height="1px"
+                      android:background="#CCC"    android:paddingLeft="10dp"
+                      android:paddingRight="10dp"
+                      android:paddingTop="10dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:paddingBottom="10dp"
+                          android:paddingTop="20dp" android:text="What is your musical influence?"
+                          android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:textSize="16sp"
+                          android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:drawableLeft="@drawable/avatar_small"
+                          android:drawablePadding="5dp"
+                          android:gravity="center_vertical"    android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:paddingBottom="10dp"
+                          android:text="Asked May 2, 2015 by J.R. Smith"
+                          android:textColor="#aaa"
+                          android:textSize="12sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:lineSpacingExtra="5dp"    android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:paddingBottom="10dp"
+                          android:text="Book of David came from a darker place; I was having family trouble and I didn't understand why my family would turn on me just for saying, “No, I can't give you guys free money anymore, I can't help you with these dreams that y'all got that ain't going to come true. I've got to support my own family and myself.” They just went crazy. They wanted to rob me. They felt entitled to my money.
+" android:textColor="#999"
+                          android:textSize="16sp"
+                    />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:paddingBottom="10dp"
+                          android:paddingTop="20dp" android:text="What do you think of rise of EDM?"
+                          android:textSize="16sp"    android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:drawableLeft="@drawable/avatar_dual_small"
+                          android:drawablePadding="5dp"    android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:gravity="center_vertical"
+                          android:paddingBottom="10dp"
+                          android:text="Asked May 3, 2014 by Mya"
+                          android:textColor="#aaa"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:lineSpacingExtra="5dp"    android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:paddingBottom="10dp"
+                          android:text="After I went through so much grief, I was trying to be funny to balance things out. So I started hanging around with motherfuckers like Katt Williams and learning comedic timing. You hear that shit on the opening skit, where it's like, Hip-hop needs a banjo!"
+                          android:textColor="#999"
+                          android:textSize="16sp"
+                    />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:paddingBottom="10dp"
+                          android:paddingTop="20dp" android:text="What is your favorite set?"
+                          android:textSize="16sp"    android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:lineSpacingExtra="5dp"
+                          android:paddingBottom="20dp"    android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:text="After I went through so much grief, I was trying to be funny to balance things out. So I started hanging around with motherfuckers like Katt Williams and learning comedic timing. You hear that shit on the opening skit, where it's like, Hip-hop needs a banjo!"
+                          android:textColor="#999"
+                          android:textSize="16sp"
+
+                    />
+
+
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:background="#DDD"
+                              android:orientation="vertical">
+                    <View android:layout_width="match_parent" android:layout_height="1px"
+                          android:paddingTop="10dp"
+                          android:background="#CCC"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:fontFamily="sans-serif-light"
+                              android:paddingLeft="10dp"
+                              android:paddingRight="10dp"
+                              android:paddingBottom="10dp"
+                              android:paddingTop="20dp"
+                              android:text="Ask Me Anything"
+                              android:textSize="24sp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:lineSpacingExtra="5dp"
+                              android:paddingRight="10dp"
+                              android:paddingLeft="10dp"
+                              android:text="Anything you'd like to learn more about? Ask away. I am usually good with responding quickly."
+                              android:paddingBottom="10dp"
+                             android:textColor="#222"
+                              android:textSize="16sp"
+                        />
+
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="bottom"
+                                  android:orientation="horizontal">
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_height="wrap_content"
+                            android:hint="Question for Rosa..."
+                            app:met_floatingLabel="normal" />
+                        <Button android:layout_width="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_height="wrap_content"
+                                android:text="Post" android:textSize="16sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/cardMarginVertical"
+            android:layout_marginLeft="@dimen/cardMarginHorizontal"
+            android:layout_marginRight="@dimen/cardMarginHorizontal"
+            android:layout_marginTop="@dimen/cardMarginVertical"
+            android:background="#ccc"
+            app:cardElevation="4dp">
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</com.github.ksoichiro.android.observablescrollview.ObservableScrollView>

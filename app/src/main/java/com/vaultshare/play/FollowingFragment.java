@@ -29,6 +29,12 @@ import java.util.Map;
  */
 public class FollowingFragment extends Fragment {
 
+    public static final String LISTING_TYPE = FollowingFragment.class.getCanonicalName() + ".extra.listing_type";
+
+    public static enum ListingType {
+        FOLLOWING, HYPE;
+    }
+
     private RecyclerView         mRecyclerView;
     private RecyclerView.Adapter mAdapter;
 
@@ -49,10 +55,17 @@ public class FollowingFragment extends Fragment {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        List<Station> stations = new ArrayList<>();
+        ListingType type = (ListingType) getArguments().getSerializable(LISTING_TYPE);
+        switch (type) {
+            case FOLLOWING:
+                initializeStations(FirebaseController.getInstance().getFollowingStationsRef(), Station.class);
+                break;
+            case HYPE:
+                initializeStations(FirebaseController.getInstance().getHypeStationsRef(), Station.class);
+                break;
+        }
 
-        initializeStations(FirebaseController.getInstance().getStationsRef(), Station.class);
-        mAdapter = new RecyclerViewMaterialAdapter(new BrowseRecyclerViewAdapter(getActivity(), mModels));
+        mAdapter = new RecyclerViewMaterialAdapter(new FollowingAdapter(getActivity(), mModels));
         mRecyclerView.setAdapter(mAdapter);
 
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);

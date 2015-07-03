@@ -38,11 +38,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void initUI() {
-
-
         setTitle("");
-//        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
-//        toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar); //mViewPager.getToolbar();
         setSupportActionBar(toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -57,10 +53,6 @@ public class MainActivity extends BaseActivity
             }
         }
 
-//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
-//        mDrawer.setDrawerListener(mDrawerToggle);
-
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.fragment_drawer);
 
@@ -69,9 +61,7 @@ public class MainActivity extends BaseActivity
         // populate the navigation drawer
         mNavigationDrawerFragment.setUserData("John Doe", "johndoe@doe.com", BitmapFactory.decodeResource(getResources(), R.drawable.avatar));
     }
-//
-//    @InjectView(R.id.toolbar_actionbar)
-//    Toolbar mToolbar;
+
 
     public void setToolbarVisibility(int v) {
         toolbar.setVisibility(v);
@@ -84,23 +74,16 @@ public class MainActivity extends BaseActivity
         Fragment f = null;
         switch (position) {
             case 0: // Following/Newsfeed
-                f = new DigFragment();
-//                toolbar.setVisibility(View.GONE);
+                f = new DigRootFragment();
                 break;
-            case 1: // Vault
-                f = new DJFragment();
-//                toolbar.setVisibility(View.VISIBLE);
-//                f = new DigFragment();
+            case 1: //
+                f = new MixRootFragment();
                 break;
-            case 2: // Mixing
+            case 2: //
                 f = new VaultFragment();
-//                toolbar.setVisibility(View.VISIBLE);
-//                f = new SettingsFragment();
                 break;
-            case 3: // Mixing
+            case 3: //
                 f = new SettingsFragment();
-//                toolbar.setVisibility(View.VISIBLE);
-//                f = new SettingsFragment();
                 break;
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -118,6 +101,13 @@ public class MainActivity extends BaseActivity
             super.onBackPressed();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+//        Intent i = new Intent(this, MixtapeActivity.class);
+//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(i);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

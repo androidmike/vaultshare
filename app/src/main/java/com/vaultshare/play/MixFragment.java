@@ -3,7 +3,10 @@ package com.vaultshare.play;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader;
 import com.firebase.client.ChildEventListener;
@@ -15,6 +18,8 @@ import com.firebase.client.ValueEventListener;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+import com.software.shell.fab.ActionButton;
+import com.squareup.otto.Subscribe;
 import com.vaultshare.play.model.FirebaseModel;
 import com.vaultshare.play.model.Station;
 import com.vaultshare.play.model.Track;
@@ -36,6 +41,8 @@ import butterknife.InjectView;
 public class MixFragment extends BaseFragment {
     @InjectView(R.id.recyclerView)
     RecyclerView mRecyclerView;
+    @InjectView(R.id.action_button)
+    ActionButton actionButton;
 
     public static Fragment newInstance() {
         return new MixFragment();
@@ -43,7 +50,7 @@ public class MixFragment extends BaseFragment {
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_recyclerview;
+        return R.layout.fragment_recyclerview_mix;
     }
 
     RecyclerViewMaterialAdapter mAdapter;
@@ -51,11 +58,36 @@ public class MixFragment extends BaseFragment {
 
     @Override
     public void initUI() {
+        actionButton.setImageDrawable(App.getContext().getResources().getDrawable(R.drawable.ic_surround_sound_white_24dp));
+        //    actionButton.setImageResource(R.drawable.fab_plus_icon);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
+
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(
+                0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                Toast.makeText(getActivity(), "Deleted.", Toast.LENGTH_LONG).show();
+                Firebase setRef = FirebaseController.getInstance().getRef().child("sets").child(pendingSetId);
+
+                String trackId = mModels.get(viewHolder.getAdapterPosition() - 2);
+                HashMap map = new HashMap();
+                map.put(trackId, null);
+                setRef.child("tracks").updateChildren(map);
+            }
+        };
+
+        final ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
 
         List<Track> tracks = new ArrayList<>();
         final Firebase userRef = FirebaseController.getInstance().getRef().child("users").child(SessionController.getInstance().getSession().getUid());
@@ -72,6 +104,14 @@ public class MixFragment extends BaseFragment {
                 }
                 Firebase setRef = FirebaseController.getInstance().getRef().child("sets").child(pendingSetId);
                 initializeTracklist(setRef.child("tracks"));
+
+
+                mAdapter = new RecyclerViewMaterialAdapter(new MixRecyclerViewAdapter(getActivity(), mModels, pendingSetId));
+                mRecyclerView.setAdapter(mAdapter);
+                itemTouchHelper.attachToRecyclerView(mRecyclerView);
+                // Material viewpager boilerplate
+                MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+
             }
 
             @Override
@@ -80,11 +120,6 @@ public class MixFragment extends BaseFragment {
             }
         });
 
-        mAdapter = new RecyclerViewMaterialAdapter(new MixRecyclerViewAdapter(getActivity(), mModels));
-        mRecyclerView.setAdapter(mAdapter);
-
-        // Material viewpager boilerplate
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
     }
 
     Query mRef = null;
@@ -129,4 +164,11 @@ public class MixFragment extends BaseFragment {
         });
     }
 
+    @Subscribe
+    public void onTrackUploaded(TrackUploaded e) {
+        Firebase setRef = FirebaseController.getInstance().getRef().child("sets").child(pendingSetId);
+        HashMap map = new HashMap();
+        map.put(e.trackId, true);
+        setRef.child("tracks").updateChildren(map);
+    }
 }
