@@ -27,12 +27,13 @@ public class TracksResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     static final int TYPE_CELL   = 1;
     String                    pendingSetId;
     List<SoundCloudTrackResp> tracks;
+    int                       pendingTrackNumber;
 
-    public TracksResultAdapter(Context context, List<SoundCloudTrackResp> tracks, String pendingSetId) {
+    public TracksResultAdapter(Context context, List<SoundCloudTrackResp> tracks, String pendingSetId, int pendingTrackNumber) {
         this.tracks = tracks;
         this.context = context;
         this.pendingSetId = pendingSetId;
-
+        this.pendingTrackNumber = pendingTrackNumber;
     }
 
 
@@ -96,11 +97,11 @@ public class TracksResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                         track.user.username,
                                         TimeUtils.getCurrentTimestamp(),
                                         SessionController.getInstance().getSession().getUid(),
-                                        Track.Source.SOUNDCLOUD, track.getId());
+                                        Track.Source.SOUNDCLOUD, track.getId(), track.artwork_url);
 
                         Firebase setRef = FirebaseController.getInstance().getRef().child("sets").child(pendingSetId).child("tracks");
                         Map map = new HashMap();
-                        map.put(vsTrackId, true);
+                        map.put(vsTrackId, pendingTrackNumber);
                         setRef.updateChildren(map);
                     }
                 });

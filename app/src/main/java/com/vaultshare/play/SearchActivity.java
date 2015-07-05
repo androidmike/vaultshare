@@ -19,6 +19,7 @@ import butterknife.InjectView;
  */
 public class SearchActivity extends BaseActivity {
     public static final String EXTRA_PENDING_SET_ID = SearchActivity.class.getCanonicalName() + ".extra.pending_set_id";
+    public static final String PENDING_TRACK_NUMBER = SearchActivity.class.getCanonicalName() + ".extra.pending_track_number";
     List<SoundCloudTrackResp> mResults = new ArrayList();
     TracksResultAdapter mAdapter;
     LinearLayoutManager mLayoutManager;
@@ -64,7 +65,8 @@ public class SearchActivity extends BaseActivity {
         showSearchBusy(View.GONE);
         this.mResults = e.response.collection;
         String pendingSetId = getIntent().getStringExtra(EXTRA_PENDING_SET_ID);
-        mAdapter = new TracksResultAdapter(this, this.mResults, pendingSetId);
+        int pendingTrackNumber = getIntent().getIntExtra(PENDING_TRACK_NUMBER, 0);
+        mAdapter = new TracksResultAdapter(this, this.mResults, pendingSetId, pendingTrackNumber);
         mRecyclerView.setAdapter(mAdapter);
     }
 

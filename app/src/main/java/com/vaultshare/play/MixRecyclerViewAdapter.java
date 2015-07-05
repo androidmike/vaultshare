@@ -116,8 +116,14 @@ public class MixRecyclerViewAdapter extends DragSortAdapter<MixRecyclerViewAdapt
 
     @Override
     public boolean move(int from, int to) {
-
-        return false;
+//
+//        Firebase setRef = FirebaseController.getInstance().getRef().child("sets").child(pendingSetId).child("tracks");
+//        Map map = new HashMap();
+//        map.put(trackIds.get(from), to);
+//        setRef.updateChildren(map);
+//        trackIds.get(from);
+        trackIds.add(to, trackIds.remove(from));
+        return true;
     }
 
     public void onDrop() {
@@ -152,6 +158,7 @@ public class MixRecyclerViewAdapter extends DragSortAdapter<MixRecyclerViewAdapt
                         Intent i = new Intent(App.getContext(), SearchActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         i.putExtra(SearchActivity.EXTRA_PENDING_SET_ID, pendingSetId);
+                        i.putExtra(SearchActivity.PENDING_TRACK_NUMBER, trackIds.size());
                         context.startActivity(i);
                     }
                 });

@@ -24,6 +24,7 @@ import com.vaultshare.play.App;
 import com.vaultshare.play.Bus;
 import com.vaultshare.play.FirebaseController;
 import com.vaultshare.play.MainActivity;
+import com.vaultshare.play.R;
 import com.vaultshare.play.Session;
 import com.vaultshare.play.SessionController;
 import com.vaultshare.play.StationActivity;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -115,6 +117,11 @@ public abstract class BaseActivity extends ActionBarActivity {
             }
         };
 
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/inconsolata.otf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
     }
 
 

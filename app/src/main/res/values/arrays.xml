@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="items">
+        <item>Voice</item>
+        <item>Text</item>
+    </string-array>
+    <string-array name="photo_source">
+        <item>Camera</item>
+        <item>Gallery</item>
+        <item>Instagram</item>
+        <item>Facebook</item>
+    </string-array>
+</resources>

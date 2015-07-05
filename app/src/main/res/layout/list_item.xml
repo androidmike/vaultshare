@@ -20,15 +20,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/bg_swipe_item_neutral">
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clickable="true"
-        android:foreground="?attr/selectableItemBackground">
+        android:foreground="?attr/selectableItemBackground"
+        android:orientation="horizontal">
 
         <View
             android:id="@+id/drag_handle"
@@ -37,15 +38,25 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="#20000000"/>
-
-        <TextView
-            android:id="@android:id/text1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="32dp"
-            android:gravity="center"
-            tools:ignore="RtlHardcoded"/>
-
-    </FrameLayout>
+        <LinearLayout android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:orientation="vertical">
+            <TextView
+                android:id="@android:id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"/>
+            <LinearLayout android:id="@+id/expanded"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:visibility="gone">
+                <Button android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Annotate"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

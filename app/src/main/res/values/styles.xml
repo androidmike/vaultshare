@@ -33,7 +33,12 @@
 
         <item name="android:navigationBarColor" tools:targetApi="21">@color/navigationBarColor</item>
         <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="21">true</item>
+        <item name="android:buttonStyle">@style/VaultButton</item>
+    </style>
 
+    <style name="VaultButton" parent="@android:style/Widget.Button">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="AppTheme.ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">

@@ -1,5 +1,6 @@
 package com.vaultshare.play;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -77,11 +78,15 @@ public class MainActivity extends BaseActivity
                 f = new DigRootFragment();
                 break;
             case 1: //
-                f = new MixRootFragment();
-                break;
+                Intent i = new Intent(App.getContext(), MixActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                return;
             case 2: //
-                f = new VaultFragment();
-                break;
+                Intent i2 = new Intent(App.getContext(), VideoCaptureActivity.class);
+                i2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i2);
+                return;
             case 3: //
                 f = new SettingsFragment();
                 break;

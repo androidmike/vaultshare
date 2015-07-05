@@ -1,5 +1,9 @@
 package com.vaultshare.play;
 
+import android.net.Uri;
+
+import com.vaultshare.play.model.Set;
+
 import java.util.List;
 
 /**
@@ -18,5 +22,6 @@ public class MixController {
         }
         return instance;
     }
+
 
 }

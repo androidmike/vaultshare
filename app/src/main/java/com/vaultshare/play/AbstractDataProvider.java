@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vaultshare.play.model;
+package com.vaultshare.play;
 
 public abstract class AbstractDataProvider {
 
@@ -32,6 +32,8 @@ public abstract class AbstractDataProvider {
         public abstract void setPinnedToSwipeLeft(boolean pinned);
 
         public abstract boolean isPinnedToSwipeLeft();
+
+        public abstract String getTrackId();
     }
 
     public abstract int getCount();

@@ -14,7 +14,9 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- GCM permission for your app (replace [com.myapp.newstandalone] with your package name) -->
     <permission
         android:name="com.myapp.newstandalone.permission.C2D_MESSAGE"
@@ -23,7 +25,7 @@
 
     <application android:name=".App"
                  android:allowBackup="true"
-                 android:icon="@drawable/vs"
+                 android:icon="@drawable/vs_2"
                  android:label="@string/app_name"
                  android:theme="@style/AppTheme">
         <meta-data android:name="com.facebook.sdk.ApplicationId"
@@ -40,6 +42,14 @@
         <activity
             android:name=".StationActivity">
         </activity>
+
+        <activity
+            android:label=""
+            android:name=".MixActivity">
+        </activity>
+        <activity
+            android:name=".TakePhotoActivity">
+        </activity>
         <activity
             android:name=".SearchActivity">
         </activity>
@@ -53,7 +63,7 @@
             android:name=".activities.MixtapeActivity">
         </activity>
         <activity
-            android:name=".demo_eds.ExpandableDraggableSwipeableExampleActivity">
+            android:name=".VideoCaptureActivity">
         </activity>
         <activity
             android:name=".activities.ProfileActivity">

@@ -13,6 +13,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
 
+        <item name="android:colorButtonNormal">#d9d9d9</item>
         <item name="android:windowBackground">@color/myWindowBackground</item>
         <item name="android:windowContentTransitions">true</item>
     </style>

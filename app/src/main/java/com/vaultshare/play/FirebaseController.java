@@ -72,6 +72,11 @@ public class FirebaseController {
         return getRef().child("hyped_stations");
     }
 
+    public Firebase getUserRef() {
+        return getRef().child("users")
+                .child(SessionController.getInstance().getSession().getUid());
+    }
+
     public enum Source {
         SPOTIFY, SOUNDCLOUD, VS;
     }
@@ -422,7 +427,7 @@ public class FirebaseController {
 
 
     public String addTrack(final String trackTitle, final String trackArtist,
-                           final String addedTime, final String addedBy, final Track.Source src, final String srcId) {
+                           final String addedTime, final String addedBy, final Track.Source src, final String srcId, final String coverUrl) {
 
         final Firebase trackRef = FirebaseController.getInstance().getRef().child("tracks").push();
         SoundCloud.getInstance().getTrackInfo(srcId, new SoundCloud.ScTrackInfoCallback() {
@@ -432,6 +437,7 @@ public class FirebaseController {
                 map.put("added_time", addedTime);
                 map.put("added_by", addedBy);
 
+                map.put("artwork_url", coverUrl);
                 map.put("track_artist", trackArtist);
                 map.put("track_title", trackTitle);
                 map.put("src", src.name());

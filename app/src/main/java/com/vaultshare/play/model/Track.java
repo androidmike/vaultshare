@@ -28,7 +28,9 @@ public class Track extends FirebaseModel {
     public String set_id;
     public String src;
     public String src_id;
+    public String artwork_url;
 
+    public String artist_url;
     public Track() {
 
     }
