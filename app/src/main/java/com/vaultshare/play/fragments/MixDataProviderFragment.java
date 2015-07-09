@@ -81,7 +81,7 @@ public class MixDataProviderFragment extends Fragment {
             private void initializeTracklist(Query mRef) {
                 this.mRef = mRef;
                 trackIds.clear();
-                mDataProvider = new ExampleDataProvider(presentData);
+//                mDataProvider = new ExampleDataProvider(presentData);
                 mListener = this.mRef.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
@@ -91,8 +91,12 @@ public class MixDataProviderFragment extends Fragment {
 
                             final int viewType = ITEM_VIEW_TYPE_SECTION_ITEM;
                             final String text = trackIds.get(0);
-                            final int swipeReaction = RecyclerViewSwipeManager.REACTION_CAN_SWIPE_LEFT |
+
+                            final int swipeReaction =
                                     RecyclerViewSwipeManager.REACTION_CAN_SWIPE_RIGHT;
+
+//                            final int swipeReaction = RecyclerViewSwipeManager.REACTION_CAN_SWIPE_LEFT |
+//                                    RecyclerViewSwipeManager.REACTION_CAN_SWIPE_RIGHT;
                             presentData.add(new ExampleDataProvider.ConcreteData(trackId.hashCode(), trackId, viewType, text, swipeReaction));
                             final Fragment fragment = getActivity().getSupportFragmentManager().findFragmentByTag(
                                     MixActivity.FRAGMENT_LIST_VIEW);

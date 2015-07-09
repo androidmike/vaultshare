@@ -12,9 +12,11 @@ import com.amazonaws.mobileconnectors.s3.transfermanager.Upload;
 import com.amazonaws.regions.Regions;
 import com.vaultshare.play.App;
 import com.vaultshare.play.Bus;
+import com.vaultshare.play.FirebaseController;
 import com.vaultshare.play.TrackUploaded;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -45,6 +47,20 @@ public class AwsController {
     public void download(String fileName, File outputFile) {
         Download download = transferManager.download("vsrecs", fileName, outputFile);
     }
+
+    public void uploadCover(String setId , String fileName, File inputFile) {
+        String bucket = "vscovers";
+        Upload upload = transferManager.upload(bucket, fileName, inputFile);
+        while (!upload.isDone()) {
+//            Toast.makeText(App.getContext(), "Uploading...", Toast.LENGTH_LONG).show();
+        }
+        Bus.getInstance().post(new CoverUploaded(setId));
+        HashMap map = new HashMap();
+        map.put("cover_url", "https://s3-us-west-2.amazonaws.com/vscovers/" + fileName);
+        FirebaseController.getInstance().getRef().child("sets").child(setId).updateChildren(map);
+        Toast.makeText(App.getContext(), "Uploaded", Toast.LENGTH_LONG).show();
+    }
+
 
     public void upload(String trackId , String fileName, File inputFile) {
         Upload upload = transferManager.upload("vsrecs", fileName, inputFile);

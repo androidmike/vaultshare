@@ -12,8 +12,9 @@ public class Track extends FirebaseModel {
         return duration;
     }
 
+    public Review reviews;
     public String getDisplayName() {
-        return name;
+        return track_artist + " - " + track_title;
     }
 
     public enum Source {

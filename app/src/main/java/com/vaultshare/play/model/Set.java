@@ -1,5 +1,6 @@
 package com.vaultshare.play.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -7,15 +8,18 @@ import java.util.List;
  */
 public class Set {
 
-    public enum State {
-        LIVE_NEW, ARCHIVED, LIVE_REWIND;
-    }
+//    public enum State {
+//        LIVE_NEW, ARCHIVED, LIVE_REWIND;
+//    }
 
-    public State state = State.ARCHIVED;
+//    public State state = State.ARCHIVED;
 
-    public List<Track> tracks;
-
-    public int liveTrack = -1; // index of tracks, -1 for not live
-
-    public int currentTrackPositionMs; // time in milliseconds
+    public String        creator;
+    public String        last_updated;
+    public String        cover_url;
+    public HashMap<String, Boolean> tracks;
+//
+//    public int liveTrack = -1; // index of tracks, -1 for not live
+//
+//    public int currentTrackPositionMs; // time in milliseconds
 }

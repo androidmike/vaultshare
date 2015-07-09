@@ -13,15 +13,15 @@ import se.emilsjolander.flipview.FlipView;
 /**
  * Created by mchang on 6/25/15.
  */
-public class MixtapeActivity extends BaseActivity {
+public class ListenActivity extends BaseActivity {
     @InjectView(R.id.flip_view)
     FlipView flipView;
-    @InjectView(R.id.top_title)
-    TextView title;
+//    @InjectView(R.id.top_title)
+//    TextView title;
 
     @Override
     public int getLayout() {
-        return R.layout.activity_mixtape;
+        return R.layout.activity_listen;
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -34,15 +34,15 @@ public class MixtapeActivity extends BaseActivity {
 
     @Override
     public void initUI() {
-        MixtapeAdapter adapter = new MixtapeAdapter(this, null);
+        ListenAdapter adapter = new ListenAdapter(this, null);
         flipView.setAdapter(adapter);
         flipView.setOnFlipListener(new FlipView.OnFlipListener() {
             @Override
             public void onFlippedToPage(FlipView flipView, int pos, long l) {
                 if (pos == 0) {
-                    title.setText("Jay-Z - Song Cry");
+//                    title.setText("Jay-Z - Song Cry");
                 } else {
-                    title.setText("Radiohead - Creep");
+//                    title.setText("Radiohead - Creep");
                 }
             }
         });

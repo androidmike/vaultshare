@@ -10,4 +10,13 @@
         <item>Instagram</item>
         <item>Facebook</item>
     </string-array>
+    <string-array name="share">
+        <item>Broadcast</item>
+        <item>Share Mixtape</item>
+    </string-array>
+    <string-array name="broadcast">
+        <item>Broadcast Now</item>
+        <item>Broadcast Now: Rewind Mixtape when Finished</item>
+        <item>Schedule Showings</item>
+    </string-array>
 </resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="left"
+              android:orientation="vertical">
+    <TextView android:id="@+id/song_title"
+              fontPath="fonts/avenir_demi.otf"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" android:letterSpacing="-.01"
+              android:paddingBottom="25dp"
+              android:paddingTop="20dp"
+              android:textColor="#000"
+              android:textSize="28sp"/>
+    <RatingBar android:id="@+id/rating_bar" style="@style/mic_rating_large"
+               android:layout_width="wrap_content" android:layout_height="wrap_content"></RatingBar>
+
+    <!--<RatingBar android:id="@+id/rating_bar"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"></RatingBar>-->
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/chat_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/avatar_small"
+        android:drawablePadding="10dp"
+        android:hint="Commentary"
+        android:textSize="16sp"
+        android:visibility="visible"
+        app:met_accentTypeface="fonts/inconsolata.otf"
+        app:met_baseColor="#000"
+        app:met_floatingLabel="normal"
+        app:met_hideUnderline="true"
+        app:met_primaryColor="#999"
+        app:met_typeface="fonts/inconsolata.otf"/>
+    <TextView android:id="@+id/review_date"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="right"
+              android:text="Last edited 0/0/0"
+              android:textColor="#666"
+              android:textSize="12sp"/>
+</LinearLayout>

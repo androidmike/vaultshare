@@ -8,16 +8,21 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.inputmethodservice.Keyboard;
 import android.net.Uri;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,10 +38,23 @@ import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeMana
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemAdapter;
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableSwipeableItemViewHolder;
 import com.h6ah4i.android.widget.advrecyclerview.utils.RecyclerViewAdapterUtils;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import com.vaultshare.play.fragments.MixDataProviderFragment;
+import com.vaultshare.play.model.AwsController;
+import com.vaultshare.play.model.PlayState;
+import com.vaultshare.play.model.Set;
 import com.vaultshare.play.model.Track;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.sql.Ref;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MixDraggableSwipeableAdapter
         extends RecyclerView.Adapter<MixDraggableSwipeableAdapter.MyViewHolder>
@@ -49,6 +67,7 @@ public class MixDraggableSwipeableAdapter
     private View.OnClickListener mItemViewOnClickListener;
     private View.OnClickListener mSwipeableViewContainerOnClickListener;
     private Uri                  coverPhoto;
+    private View.OnClickListener ratingListener;
 
     public interface EventListener {
         void onItemRemoved(int position);
@@ -61,15 +80,32 @@ public class MixDraggableSwipeableAdapter
     public static class MyViewHolder extends AbstractDraggableSwipeableItemViewHolder {
         public FrameLayout mContainer;
         public View        mDragHandle;
-        public TextView    mTextView;
-        public ImageView   mImageView;
+        public TextView    mTextView, mTrackNumber;
+        public ImageView        mImageView;
+        public View             mChatButton;
+        public MaterialEditText mChatRow;
+        public RatingBar        mRatingBar;
+        public Button           mActionButton;
+        public ViewGroup        mRatingArea;
+        public TextView         mTrackDuration;
+        public TextView         mNoteText;
+        public View             innerContainer;
 
         public MyViewHolder(View v) {
             super(v);
+            innerContainer = v.findViewById(R.id.inner_container);
             mContainer = (FrameLayout) v.findViewById(R.id.container);
+//            mChatButton = v.findViewById(R.id.chat_icon);
+            mChatRow = (MaterialEditText) v.findViewById(R.id.chat_row);
             mDragHandle = v.findViewById(R.id.drag_handle);
+            mTrackNumber = (TextView) v.findViewById(R.id.track_number);
             mTextView = (TextView) v.findViewById(android.R.id.text1);
             mImageView = (ImageView) v.findViewById(R.id.list_cover);
+            mRatingArea = (ViewGroup) v.findViewById(R.id.rating_area);
+            mRatingBar = (RatingBar) v.findViewById(R.id.rating_bar);
+            mActionButton = (Button) v.findViewById(R.id.action_button);
+            mNoteText = (TextView) v.findViewById(R.id.note_text);
+            mTrackDuration = (TextView) v.findViewById(R.id.track_duration);
         }
 
         @Override
@@ -90,7 +126,7 @@ public class MixDraggableSwipeableAdapter
         mItemViewOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemViewClick(v);
+                int i = 0;
             }
         };
         mSwipeableViewContainerOnClickListener = new View.OnClickListener() {
@@ -104,6 +140,27 @@ public class MixDraggableSwipeableAdapter
         // DraggableItemAdapter and SwipeableItemAdapter require stable ID, and also
         // have to implement the getItemId() method appropriately.
         setHasStableIds(true);
+
+        Firebase pendingSetRef = FirebaseController.getInstance().getRef().child("sets").child(pendingSetId);
+
+        pendingSetRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Set set = dataSnapshot.getValue(Set.class);
+                if (set != null) {
+                    if (set.cover_url != null) {
+                        coverPhoto = Uri.parse(set.cover_url);
+                        notifyItemChanged(0);
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     private void onItemViewClick(View v) {
@@ -136,14 +193,42 @@ public class MixDraggableSwipeableAdapter
     }
 
     @Subscribe
-    public void onPictureTaken(PictureTaken e) {
+    public void onPictureTaken(final PictureTaken e) {
         this.coverPhoto = e.uri;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                AwsController.getInstance().uploadCover(pendingSetId, pendingSetId + ".jpg", FileHelper.getFile(e.uri));
+            }
+        }).run();
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         if (holder.getItemViewType() == MixDataProviderFragment.ITEM_VIEW_TYPE_SECTION_HEADER) {
-            ImageView coverImage = (ImageView) holder.itemView.findViewById(R.id.cover_image);
+            final ImageView coverImage = (ImageView) holder.itemView.findViewById(R.id.cover_image);
+            Firebase pendingSetRef = FirebaseController.getInstance().getRef().child("sets").child(pendingSetId);
+
+//            pendingSetRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    Set set = dataSnapshot.getValue(Set.class);
+//                    if (set != null) {
+//                        if (set.cover_url != null) {
+//                            coverPhoto = Uri.parse(set.cover_url);
+//                            Picasso.with(App.getContext()).load(coverPhoto).into(coverImage);
+//                        }
+//                    }
+//                }
+//
+//
+//                @Override
+//                public void onCancelled(FirebaseError firebaseError) {
+//
+//                }
+//            });
+
+
             Picasso.with(App.getContext()).load(coverPhoto).into(coverImage);
 
             holder.itemView.findViewById(R.id.add_track_button).setOnClickListener(new View.OnClickListener() {
@@ -228,25 +313,132 @@ public class MixDraggableSwipeableAdapter
         // set listeners
         // (if the item is *not pinned*, click event comes to the itemView)
         holder.itemView.setOnClickListener(mItemViewOnClickListener);
+
         // (if the item is *pinned*, click event comes to the mContainer)
         holder.mContainer.setOnClickListener(mSwipeableViewContainerOnClickListener);
+        ratingListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean wrapInScrollView = true;
+                MaterialDialog dialog = new MaterialDialog.Builder(context)
+                        .customView(R.layout.rating_layout, wrapInScrollView)
+                        .positiveText("OK")
+                        .callback(new MaterialDialog.ButtonCallback() {
+                            @Override
+                            public void onPositive(MaterialDialog dialog) {
+                                RatingBar ratingBar = (RatingBar) dialog.getCustomView().findViewById(R.id.rating_bar);
+                                float rating = ratingBar.getRating();
+                                TextView reviewNote = (TextView) dialog.getCustomView().findViewById(R.id.chat_row);
+                                String text = reviewNote.getText().toString();
+                                final String trackId = mProvider.getItem(position).getTrackId();
+                                saveTrackReview(trackId, rating, text);
 
+
+                                super.onPositive(dialog);
+                            }
+                        })
+                        .show();
+
+                final View view = dialog.getCustomView();
+                final RatingBar ratingBar = (RatingBar) view.findViewById(R.id.rating_bar);
+                ratingBar.setNumStars(5);
+                ratingBar.setStepSize(0.5f);
+                final EditText reviewNote = (EditText) view.findViewById(R.id.chat_row);
+
+
+                final TextView reviewDate = (TextView) view.findViewById(R.id.review_date);
+                reviewNote.requestFocus();
+                final String trackId = mProvider.getItem(position).getTrackId();
+                final Firebase trackRef = FirebaseController.getInstance().getRef().child("tracks").child(trackId);
+
+
+                trackRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        final Track track = dataSnapshot.getValue(Track.class);
+                        if (track != null) {
+                            //     holder.description.setText("Duration: " + TimeUtils.getDurationBreakdown(track.getDuration()));
+                            TextView songTitle =
+                                    (TextView) view.findViewById(R.id.song_title);
+                            songTitle.setText(track.track_title);
+                            if (track.reviews != null) {
+                                ratingBar.setRating(track.reviews.rating);
+                                reviewNote.setText(track.reviews.note);
+                                if (track.reviews.edit_date != null) {
+                                    reviewDate.setText(TimeUtils.getTimeAgo(track.reviews.edit_date));
+                                }
+                            }
+
+
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+
+                    }
+                });
+
+            }
+
+            private void saveTrackReview(String trackId, float rating, String reviewText) {
+                Firebase reviewRef = FirebaseController.getInstance().getRef().child("tracks").child(trackId).child("reviews");
+                HashMap map = new HashMap();
+                map.put("rating", String.valueOf(rating));
+                map.put("note", reviewText);
+                map.put("edit_date", TimeUtils.getCurrentTimestamp());
+                reviewRef.updateChildren(map);
+
+                notifyItemChanged(position);
+            }
+        };
+        holder.mActionButton.setOnClickListener(ratingListener);
+        holder.mRatingArea.setOnClickListener(ratingListener);
         // set text
         // holder.mTextView.setText(item.getText());
 
         final String trackId = mProvider.getItem(position).getTrackId();
         final Firebase trackRef = FirebaseController.getInstance().getRef().child("tracks").child(trackId);
+        holder.mTrackNumber.setText("Track " + position);
 
         trackRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Track track = dataSnapshot.getValue(Track.class);
+                final Track track = dataSnapshot.getValue(Track.class);
                 if (track != null) {
                     //     holder.description.setText("Duration: " + TimeUtils.getDurationBreakdown(track.getDuration()));
                     holder.mTextView.setText(track.track_title);
-                    UIHelper.setGrayScale(holder.mImageView);
-                    Picasso.with(App.getContext()).load(track.artwork_url).into(holder.mImageView);
+                    if (track.reviews != null) {
+                        holder.mNoteText.setText(track.reviews.note);
+                        holder.mNoteText.setVisibility(View.VISIBLE);
+                        holder.mActionButton.setText("Edit");
+                        holder.mActionButton.setVisibility(View.GONE);
+                        holder.mRatingArea.setVisibility(View.VISIBLE);
+                        holder.mRatingBar.setRating(track.reviews.rating);
+                        holder.mRatingBar.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.mNoteText.setVisibility(View.GONE);
+                        holder.mActionButton.setVisibility(View.VISIBLE);
+                        holder.mActionButton.setText("Add Note");
+                        holder.mRatingArea.setVisibility(View.GONE);
+                    }
+
+                    holder.mTrackDuration.setText(TimeUtils.getDurationBreakdown(track.getDuration()));
+//                    UIHelper.setGrayScale(holder.mImageView);
+                    if (!TextUtils.isEmpty(track.artwork_url)) {
+                        Picasso.with(App.getContext()).load(track.artwork_url).into(holder.mImageView);
+                    } else {
+                        Picasso.with(App.getContext()).load(R.drawable.album_blank).into(holder.mImageView);
+                    }
                 }
+                holder.innerContainer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MediaPlayerController.getInstance().play(track);
+
+                    }
+                });
             }
 
 
@@ -255,7 +447,6 @@ public class MixDraggableSwipeableAdapter
 
             }
         });
-
 
         // set background resource (target view ID: container)
         final int dragState = holder.getDragStateFlags();

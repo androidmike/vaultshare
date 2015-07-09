@@ -16,7 +16,7 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- GCM permission for your app (replace [com.myapp.newstandalone] with your package name) -->
     <permission
         android:name="com.myapp.newstandalone.permission.C2D_MESSAGE"
@@ -57,10 +57,16 @@
             android:name=".MainActivity">
         </activity>
         <activity
+            android:name=".RadioActivity">
+        </activity>
+        <activity
+            android:name=".RotationActivity">
+        </activity>
+        <activity
             android:name=".activities.LoginActivity">
         </activity>
         <activity
-            android:name=".activities.MixtapeActivity">
+            android:name=".activities.ListenActivity">
         </activity>
         <activity
             android:name=".VideoCaptureActivity">

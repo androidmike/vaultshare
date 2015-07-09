@@ -65,7 +65,7 @@ public class FirebaseController {
 
     public Query getFollowingStationsRef() {
         return getRef().child("followed_by_" + SessionController.getInstance().getSession().getUid());
-
+//return getRef();
     }
 
     public Query getHypeStationsRef() {
@@ -426,7 +426,7 @@ public class FirebaseController {
     }
 
 
-    public String addTrack(final String trackTitle, final String trackArtist,
+    public String addTrack(final String setId, final String trackTitle, final String trackArtist,
                            final String addedTime, final String addedBy, final Track.Source src, final String srcId, final String coverUrl) {
 
         final Firebase trackRef = FirebaseController.getInstance().getRef().child("tracks").push();
@@ -437,6 +437,8 @@ public class FirebaseController {
                 map.put("added_time", addedTime);
                 map.put("added_by", addedBy);
 
+                map.put("set_id", setId);
+                map.put("track_artist", trackArtist);
                 map.put("artwork_url", coverUrl);
                 map.put("track_artist", trackArtist);
                 map.put("track_title", trackTitle);

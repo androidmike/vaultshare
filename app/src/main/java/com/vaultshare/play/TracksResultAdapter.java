@@ -93,7 +93,7 @@ public class TracksResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     @Override
                     public void onClick(View v) {
                         String vsTrackId = FirebaseController.getInstance()
-                                .addTrack(track.getTitle(),
+                                .addTrack(pendingSetId, track.getTitle(),
                                         track.user.username,
                                         TimeUtils.getCurrentTimestamp(),
                                         SessionController.getInstance().getSession().getUid(),

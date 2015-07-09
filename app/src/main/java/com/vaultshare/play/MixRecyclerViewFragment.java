@@ -124,7 +124,7 @@ public class MixRecyclerViewFragment extends Fragment implements ObservableScrol
         } else {
             mRecyclerView.addItemDecoration(new ItemShadowDecorator((NinePatchDrawable) getResources().getDrawable(R.drawable.material_shadow_z1)));
         }
-        mRecyclerView.addItemDecoration(new SimpleListDividerDecorator(getResources().getDrawable(R.drawable.list_divider), true));
+//        mRecyclerView.addItemDecoration(new SimpleListDividerDecorator(getResources().getDrawable(R.drawable.list_divider), true));
 
         // NOTE:
         // The initialization order is very important! This order determines the priority of touch event handling.

@@ -52,7 +52,7 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
         initTrackPosition = (int) startState.getPositionMs();
         tracks = new ArrayList<>(trackList);
         Track initTrack = tracks.get(currentTrackNumber);
-
+        currentTrack = initTrack;
         mMediaPlayer.setDataSource(
                 String.format(App.getContext().getString(R.string.soundcloud_stream_url), initTrack.src_id,
                         App.getContext().getString(R.string.soundcloud_id)));
@@ -73,6 +73,7 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
             mMediaPlayer.stop();
             mMediaPlayer.release();
             mMediaPlayer = null;
+            Bus.getInstance().post(new TrackStopped(currentTrack));
         }
     }
 
@@ -85,6 +86,7 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
                 length = mp.getDuration();
                 mp.start();
                 observer = new MediaObserver();
+                Bus.getInstance().post(new TrackStarted(currentTrack));
                 new Thread(observer).start();
             }
         });
@@ -92,6 +94,7 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
 
     @Override
     public void onCompletion(MediaPlayer mp) {
+        Bus.getInstance().post(new TrackStopped(currentTrack));
         if (observer != null) {
             observer.stop();
         }
@@ -110,8 +113,29 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         //((ProgressBar) findViewById(R.id.pb)).setProgress(mp.getCurrentPosition());
     }
+
+    Track currentTrack;
+
+    public void play(Track track) {
+        restartMediaPlayer();
+
+        try {
+            mMediaPlayer.setDataSource(
+                    String.format(App.getContext().getString(R.string.soundcloud_stream_url), track.src_id,
+                            App.getContext().getString(R.string.soundcloud_id)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        mMediaPlayer.setOnPreparedListener(this);
+//        mMediaPlayer.setOnCompletionListener(this);
+        mMediaPlayer.prepareAsync();
+        currentTrack = track;
+    }
+
 
     private class MediaObserver implements Runnable {
         private AtomicBoolean stop = new AtomicBoolean(false);

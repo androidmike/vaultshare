@@ -85,4 +85,15 @@
         <item name="android:paddingBottom">8dp</item>
     </style>
 
+    <style name="mic_rating" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/food_rating_bar_full</item>
+        <item name="android:minHeight">23dip</item>
+        <item name="android:maxHeight">25dip</item>
+    </style>
+    <style name="mic_rating_large" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/mic_large</item>
+        <!--<item name="android:minHeight">50dp</item>-->
+        <!--<item name="android:maxHeight">55dp</item>-->
+    </style>
+
 </resources>
