@@ -250,71 +250,79 @@ public class FirebaseController {
         addSet(stationId, trackIds);
     }
 
-
-    public void joinSet(String stationId) {
-        if (stationId == null) {
-            Toast.makeText(App.getContext(), "Cannot join live set", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        final Firebase station = FirebaseController.getInstance().getRef().child("stations").child(stationId);
-        Map map = new HashMap();
-        map.put(SessionController.getInstance().getSession().getUid(), TimeUtils.getCurrentTimestamp());
-        station.child("live_users").updateChildren(map);
-
-        station.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                // do some stuff once
-                Map<String, Object> attributes = (Map<String, Object>) snapshot.getValue();
-                final String liveSetId = (String) attributes.get("live_set");
-                final String liveSetStartTime = (String) attributes.get("live_set_start_time");
-
-                getTracksInSet(liveSetId, new RetrieveTracksIdsInSetCallBack() {
-                    @Override
-                    public void onTracksIdsRetrieved(List<String> trackIds) {
-                        for (String tid : trackIds) {
-                            Firebase trackRef = ref.child("tracks").child(tid);
-                        }
-                    }
-                });
-
-                ref.child("tracks").orderByChild("set_id").equalTo(liveSetId)
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                // Get duration of entire set
-                                Map<String, Map> valMap = (Map<String, Map>) dataSnapshot.getValue();
-
-                                // Convert to beans for local use
-                                List<Track> tracks = new ArrayList<Track>();
-                                for (Map.Entry<String, Map> entry : valMap.entrySet()) {
-                                    Track track = dataSnapshot.child(entry.getKey()).getValue(Track.class);
-                                    tracks.add(track);
-                                }
-                                PlayState playState = getPlayState(liveSetStartTime, tracks);
-                                try {
-                                    MediaPlayerController.getInstance().play(playState, tracks);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                Log.d(TAG, String.format("Track #: %s; Track Position: %s",
-                                        playState.getTrackNumber(), playState.getPositionMs()));
-                            }
-
-                            @Override
-                            public void onCancelled(FirebaseError firebaseError) {
-
-                            }
-                        });
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-    }
+//
+//    public void joinSet(String stationId) {
+//        if (stationId == null) {
+//            Toast.makeText(App.getContext(), "Cannot join live set", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        final Firebase station = FirebaseController.getInstance().getRef().child("stations").child(stationId);
+//        Map map = new HashMap();
+////        map.put(SessionController.getInstance().getSession().getUid(), TimeUtils.getCurrentTimestamp());
+//        map.put("facebook:10105340362088383", TimeUtils.getCurrentTimestamp());
+//        station.child("live_users").updateChildren(map);
+//        String liveTrackId, liveTrackStartTime;
+//        station.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                // do some stuff once
+//                Map<String, Object> attributes = (Map<String, Object>) snapshot.getValue();
+//                final String liveSetId = (String) attributes.get("live_set");
+//                Long liveTrackNumber = (Long) attributes.get("live_track_index");
+//                String liveTrackStartTime = (String) attributes.get("live_track_start_time");
+//
+//                if (liveTrackStartTime == null) {
+//                    liveTrackStartTime = TimeUtils.getCurrentTimestamp();
+//                    HashMap map = new HashMap();
+//                    map.put("live_track_start_time", liveTrackStartTime);
+//                    station.updateChildren(map);
+//                }
+//                if (null == liveTrackNumber) {
+//                    HashMap map = new HashMap();
+//                    map.put("live_track_index", 0);
+//                    station.updateChildren(map);
+//                }
+//            }
+//
+//
+////                final String finalLiveSetStartTime = liveTrackStartTime;
+////                ref.child("tracks").orderByChild("set_id").equalTo(liveSetId)
+////                        .addListenerForSingleValueEvent(new ValueEventListener() {
+////                            @Override
+////                            public void onDataChange(DataSnapshot dataSnapshot) {
+////                                // Get duration of entire set
+////                                Map<String, Map> valMap = (Map<String, Map>) dataSnapshot.getValue();
+////
+////                                // Convert to beans for local use
+////                                List<Track> tracks = new ArrayList<Track>();
+////                                for (Map.Entry<String, Map> entry : valMap.entrySet()) {
+////                                    Track track = dataSnapshot.child(entry.getKey()).getValue(Track.class);
+////                                    tracks.add(track);
+////                                }
+////                                PlayState playState = getPlayState(finalLiveSetStartTime, tracks);
+////                                try {
+////                                    MediaPlayerController.getInstance().play(playState, tracks);
+////                                } catch (IOException e) {
+////                                    e.printStackTrace();
+////                                }
+////                                Log.d(TAG, String.format("Track #: %s; Track Position: %s",
+////                                        playState.getTrackNumber(), playState.getPositionMs()));
+////                            }
+////
+////                            @Override
+////                            public void onCancelled(FirebaseError firebaseError) {
+////
+////                            }
+////                        });
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//
+//            }
+//        });
+//    }
 
     private PlayState getPlayState(String liveSetStartTime, List<Track> tracks) {
         List<Long> startTime = new ArrayList<>();
@@ -416,8 +424,8 @@ public class FirebaseController {
         stationRef.setValue(map);
 
         // Link station to user
-        Firebase userRef = FirebaseController.getInstance().getRef().child("users")
-                .child(SessionController.getInstance().getSession().getUid());
+        Firebase userRef = FirebaseController.getInstance().getRef().child("users").child("facebook:10105340362088383");
+//                .child(SessionController.getInstance().getSession().getUid());
         HashMap map2 = new HashMap();
         map2.put(stationRef.getKey(), true);
         userRef.child("stations").setValue(map2);

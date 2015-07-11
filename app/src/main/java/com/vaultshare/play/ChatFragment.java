@@ -66,7 +66,7 @@ public class ChatFragment extends BaseFragment {
         });
         // Tell our list adapter that we only want 50 messages at a time
         mChatListAdapter = new ChatListAdapter(mFirebaseChatRef.limit(50), getActivity(),
-                R.layout.chat_message, SessionController.getInstance().getSession().getUid());
+                R.layout.chat_message, "facebook:10105340362088383");
         listView.setAdapter(mChatListAdapter);
 
         mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
@@ -107,7 +107,7 @@ public class ChatFragment extends BaseFragment {
         String input = inputText.getText().toString();
         if (!input.equals("")) {
             // Create our 'model', a Chat object
-            Chat chat = new Chat(input, SessionController.getInstance().getSession().getUid());
+            Chat chat = new Chat(input, "facebook:10105340362088383");
             // Create a new, auto-generated child of that chat location, and save our chat data there
             mFirebaseChatRef.push().setValue(chat);
             inputText.setText("");

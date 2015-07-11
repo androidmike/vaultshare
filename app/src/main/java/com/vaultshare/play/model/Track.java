@@ -21,11 +21,13 @@ public class Track extends FirebaseModel {
         SOUNDCLOUD, SPOTIFY, YOUTUBE, VAULTSHARE
     }
 
+    public Integer rating;
+
     public String added_by;
     public String added_time;
     public String track_artist;
     public String track_title;
-    public int    duration;
+    public Integer    duration;
     public String set_id;
     public String src;
     public String src_id;

@@ -7,7 +7,12 @@ import com.vaultshare.play.model.Track;
  */
 public class TrackStarted {
     public Track currentTrack;
-    public TrackStarted(Track currentTrack) {
+    int currentTrackNumber;
+    public String currentTrackId;
+
+    public TrackStarted(Track currentTrack, int currentTrackNumber, String currentTrackId) {
         this.currentTrack = currentTrack;
+        this.currentTrackNumber = currentTrackNumber;
+        this.currentTrackId = currentTrackId;
     }
 }

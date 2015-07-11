@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    android:id="@+id/slide_up_panel_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    sothree:umanoPanelHeight="56dp"
+    sothree:umanoShadowHeight="4dp">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+        <!-- activity_screen_slide.xml -->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_gravity="top"
+                  android:orientation="vertical">
+        <Button android:layout_width="wrap_content"
+                android:id="@+id/skip"
+                android:text="Master Skip"
+                android:layout_height="wrap_content"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+            >
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:background="#000"
+                          android:orientation="horizontal">
+                <ImageView android:id="@+id/thumb"
+                           android:layout_width="50dp"
+                           android:layout_height="50dp"/>
+                <TextView android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:text="Jay-Z - Song Cry"/>
+            </LinearLayout>
+
+            <fragment android:id="@+id/chat_fragment"
+                      class="com.vaultshare.play.ChatFragment" android:layout_width="0px"
+                      android:layout_height="match_parent" android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
