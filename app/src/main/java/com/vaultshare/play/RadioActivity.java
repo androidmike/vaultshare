@@ -22,6 +22,7 @@ public class RadioActivity extends BaseActivity {
     @InjectView(R.id.skip)
     View masterSkip;
 
+
     @Override
     public int getLayout() {
         return R.layout.radio;
@@ -36,6 +37,7 @@ public class RadioActivity extends BaseActivity {
                 Bus.getInstance().post(new MasterSkip());
             }
         });
+
     }
 
 //    @Subscribe
@@ -68,9 +70,12 @@ public class RadioActivity extends BaseActivity {
     public void onTrackStarted(TrackStarted e) {
 //        mPager.setCurrentItem(e.currentTrackNumber);
         playedTrackIds.add(e.currentTrackId);
-        mPagerAdapter = new TrackAdapter(getSupportFragmentManager(), playedTrackIds);
-
-        mPager.setAdapter(mPagerAdapter);
+        if (mPagerAdapter == null) {
+            mPagerAdapter = new TrackAdapter(getSupportFragmentManager(), playedTrackIds);
+            mPager.setAdapter(mPagerAdapter);
+        } else {
+            mPagerAdapter.notifyDataSetChanged();
+        }
         mPager.setCurrentItem(playedTrackIds.size() - 1, true);
     }
 
@@ -82,13 +87,13 @@ public class RadioActivity extends BaseActivity {
             super.onBackPressed();
         } else {
             // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+            mPager.setCurrentItem(mPager.getCurrentItem() - 1, true);
         }
     }
 
     @Subscribe
     public void onSkipTrack(SkipTrack e) {
-        mPager.setCurrentItem(mPager.getCurrentItem() + 1);
+        mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
     }
 
 }

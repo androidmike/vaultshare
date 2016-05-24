@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Atlas-Android/layer-atlas/layer-atlas.iml" filepath="$PROJECT_DIR$/Atlas-Android/layer-atlas/layer-atlas.iml" />
       <module fileurl="file://$PROJECT_DIR$/vaultshare.iml" filepath="$PROJECT_DIR$/vaultshare.iml" />
     </modules>
   </component>

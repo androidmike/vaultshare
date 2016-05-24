@@ -12,7 +12,6 @@ import com.firebase.client.ValueEventListener;
 import com.vaultshare.play.model.PlayState;
 import com.vaultshare.play.model.Track;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,8 +72,37 @@ public class FirebaseController {
     }
 
     public Firebase getUserRef() {
-        return getRef().child("users")
-                .child(SessionController.getInstance().getSession().getUid());
+//        return getRef().child("users")
+//                .child(SessionController.getInstance().getSession().getUid());
+        return getRef().child("users").child("facebook:10105340362088383");
+    }
+
+    public interface CosignArtistResponse {
+        public void onSuccess();
+
+        public void onFail(HashMap value);
+    }
+
+    public void cosignArtist(String artistId, final CosignArtistResponse cb) {
+        final HashMap map = new HashMap();
+        map.put(artistId, TimeUtils.getCurrentTimestamp());
+
+        getUserRef().child("cosigns").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount() >= 1) {
+                    cb.onFail((HashMap) dataSnapshot.getValue());
+                } else {
+                    getUserRef().child("cosigns").updateChildren(map);
+                    cb.onSuccess();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     public enum Source {

@@ -27,9 +27,12 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
     static MediaPlayerController mediaPlayerController;
 
     int         length             = 0;
-    int         initTrackPosition  = 0;
     int         currentTrackNumber = 0;
     MediaPlayer mMediaPlayer       = null;
+    List<String> trackIds;
+    String       liveTrackStartTime;
+    HashMap<String, Track> trackMap = new HashMap();
+    String liveSetId;
 
     public MediaPlayerController() {
         Bus.getInstance().register(this);
@@ -42,11 +45,6 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
         return mediaPlayerController;
     }
 
-    List<String> trackIds;
-    Long         liveTrackNumber;
-    String       liveTrackStartTime;
-    HashMap<String, Track> trackMap = new HashMap();
-    String liveSetId;
 
     public void joinHipHop() {
 
@@ -64,7 +62,7 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
                 // do some stuff once
                 Map<String, Object> attributes = (Map<String, Object>) snapshot.getValue();
                 liveSetId = (String) attributes.get("live_set");
-                liveTrackNumber = (Long) attributes.get("live_track_index");
+                Long liveTrackNumber = (Long) attributes.get("live_track_index");
 
                 liveTrackStartTime = (String) attributes.get("live_track_start_time");
 
@@ -126,11 +124,12 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
                 }
 
                 if (dataSnapshot.getKey().equals("live_track_index")) {
-                    liveTrackNumber = (Long) dataSnapshot.getValue();
+                    Long liveTrackNumber = (Long) dataSnapshot.getValue();
+                    currentTrackNumber = liveTrackNumber.intValue();
                     currentTrack = trackMap.get(trackIds.get(liveTrackNumber.intValue()));
                 }
 
-                play(trackIds.get(liveTrackNumber.intValue()),
+                play(trackIds.get(currentTrackNumber),
                         (int) TimeUtils.getTimeSince(liveTrackStartTime));
             }
 
@@ -174,7 +173,7 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
                             int trackPositionMs = (int) TimeUtils.getTimeSince(liveTrackStartTime);
 
 
-                            MediaPlayerController.getInstance().play(trackIds.get(liveTrackNumber.intValue()), trackPositionMs);
+                            MediaPlayerController.getInstance().play(trackIds.get(currentTrackNumber), trackPositionMs);
                         }
 
                         if (!firstTime) {
@@ -242,6 +241,8 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
             }
         });
     }
+
+    int initTrackPosition;
 
     private void play(final String trackId, long time) {
         if (trackMap.get(trackId) == null) {
@@ -407,7 +408,6 @@ public class MediaPlayerController implements MediaPlayer.OnPreparedListener, Me
         map.put("live_track_index", currentTrackNumber);
         station.updateChildren(map);
 
-        liveTrackNumber = Long.valueOf(currentTrackNumber);
 
         play(trackIds.get(currentTrackNumber), 0);
 
